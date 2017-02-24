@@ -1,0 +1,91 @@
+<!--
+STYLES SOM ANVÄNDS:
+1. Text color
+2. Text size
+3. Letter spacing
+4. Thickness
+5. Italic
+6. Font
+
+ÖVRIGA KOMMENTARER:
+1. var 'backLetterColor'
+    -. Textfärgen som syns innan gradient sveper över.
+    -. Bör ha en egen color-picker
+2. var 'letterColor' 
+    -. Används som färgen som sveper över texten.
+3. var 'animTime' 
+    -. Används som hastigheten på 'letterColor' med stylen 'letter-spacing'.
+-->
+
+<h1 data-text="It's loading…" id="text">BannerFlow</h1>
+
+<script>
+    var loading =  document.getElementById('text'),
+        letterColor = "#000",
+        backLetterColor = "#fff",
+        head = document.head || document.getElementById('text'),
+        style = document.createElement('style');
+
+    style.type = 'text/css';
+    head.appendChild(style);
+
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+        loading.innerHTML = BannerFlow.text;
+        loading.setAttribute('data-text', BannerFlow.text);
+
+        var text = BannerFlow.getText();
+        var textLength = text.length;
+
+        if(textLength == 0 || textLength == null || textLength == 'undefined') {
+            BannerFlow.setText("BannerFlow");
+        } 
+    });
+
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () { 
+        loading.style["font-size"] = BannerFlow.getStyle("font-size");
+        loading.style["font-weight"] = BannerFlow.getStyle("font-weight");
+        loading.style["font-style"] = BannerFlow.getStyle("font-style");
+        loading.style["font-family"] = BannerFlow.getStyle("font");
+
+        letterColor = BannerFlow.getStyle("color");
+        
+        var str = BannerFlow.getStyle("letter-spacing");      
+        var n = str.indexOf(" ");
+        animTime = str.slice(0,n-1);
+
+        var css = 'h1 {color: ' + backLetterColor + '!important;} h1:before {color: ' + letterColor + '!important;} h1:before {animation: loading ' + animTime + 's linear !important;}';
+
+        if (style.styleSheet){
+            style.styleSheet.cssText = css;
+        } else {
+            style.appendChild(document.createTextNode(css));
+        }
+    });    
+
+</script>
+
+<style>
+    h1 {
+        position: relative;
+        color: #000;
+        font-size: 7em;
+        font-family: Helvetica, Verdana, Arial, Sans-Serif;
+    }
+    h1:before {
+        padding: 0 10px;
+        content: attr(data-text);
+        position: absolute;
+        overflow: hidden;
+        left:-10px;
+        top:0;
+        max-width: 7em;
+        white-space: nowrap;
+        color: #fff;
+        animation: loading 3s linear;
+    }
+
+    @-webkit-keyframes loading {0% {max-width: 0;}}
+    @-moz-keyframes loading {0% {max-width: 0;}}
+    @-o-keyframes loading {0% {max-width: 0;}}
+    @keyframes loading {0% {max-width: 0;}}
+</style>

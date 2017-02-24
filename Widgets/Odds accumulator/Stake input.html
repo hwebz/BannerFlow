@@ -1,0 +1,130 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+    body, html {
+        background-color: transparent;
+        margin:0px;
+        padding:0px;
+    }
+   
+    .btn {
+        color: #418400;
+       background-color: #20571f;
+        font-size:12px;
+    }
+    
+	.btn, .btn-group {
+        width: 100%;
+        display: block;
+        background-color: #20571f;
+    }
+    .dropdown-menu {
+        width: 100%;
+        min-width:  initial;
+    }
+    input {
+        text-align: center;
+        background-color: #20571f;
+        color:#fff;
+        font-size:12px;        
+    }
+    
+    .form-control{
+        
+        background-color: #20571f;
+        border:none;
+        color:#fff;
+        border-radius:0px;
+  
+
+    }
+    
+</style>
+
+
+
+
+<!-- Single button -->
+<div class="container">
+    <input class="form-control input-sm" type="text" placeholder="Enter sum to bet">
+</div>
+<script>
+    var selectedOdds = {};
+    var stake = 5;
+    var key = "";
+    var stopTimeout;
+    var prefix = "";
+    var suffix = "";
+    
+    window.onload = function () {
+        
+        BannerFlow.addEventListener(BannerFlow.TEXT_UPDATED, function () {
+            var s = BannerFlow.getText().replace(/\s/, "").split(";");
+            var initSum = s.length > 1 ? s[1] : "€5";
+            prefix = initSum.match(/[^\d]*/).length > 0 ? initSum.match(/[^\d]*/)[0] : "";
+            suffix = initSum.replace(/.*[\d]/, "");
+            $("input").val(initSum);
+            console.log("sum", initSum, prefix, suffix);
+            key = s.length > 0 ? s[0] : "";
+            setStake(initSum);
+        })
+        
+        BannerFlow.addEventListener("odds_changed", oddsChanged);
+        
+        BannerFlow.addEventListener(BannerFlow.LOOP, function (e) {
+            selectedOdds = {};
+            calculateWinning();
+        })
+        $("input").keyup(function (e) {
+            setStake($("input").val());
+            pauseBanner();
+        });
+        
+    }
+    
+    function setStake(s) {
+        stake = s;
+        BannerFlow.raiseEvent("stake_changed", s);
+        calculateWinning()
+    }
+    
+    function oddsChanged(e) {
+        if(e.data) {
+        	selectedOdds[e.data.key] = e.data.odds;
+        }
+        calculateWinning();
+        pauseBanner()
+    }
+    
+    function pauseBanner() {
+        BannerFlow.pause();
+        if(stopTimeout) clearTimeout(stopTimeout);
+        stopTimeout = setTimeout(function () {
+            BannerFlow.play();
+        }, 10000);
+    }
+    function calculateWinning() {
+        var odds = accounting.unformat(stake);
+        
+        for (var k in selectedOdds) {
+            odds *= selectedOdds[k];
+            
+        }
+        console.log("oddsChanged", selectedOdds, odds, prefix+accounting.formatNumber(odds)+suffix,key);
+        
+        BannerFlow.setTextByKey(key, prefix+accounting.formatNumber(odds)+suffix);
+    }
+                    
+
+/*!
+ * accounting.js v0.4.1, copyright 2014 Open Exchange Rates, MIT license, http://openexchangerates.github.io/accounting.js
+ */
+(function(p,z){function q(a){return!!(""===a||a&&a.charCodeAt&&a.substr)}function m(a){return u?u(a):"[object Array]"===v.call(a)}function r(a){return"[object Object]"===v.call(a)}function s(a,b){var d,a=a||{},b=b||{};for(d in b)b.hasOwnProperty(d)&&null==a[d]&&(a[d]=b[d]);return a}function j(a,b,d){var c=[],e,h;if(!a)return c;if(w&&a.map===w)return a.map(b,d);for(e=0,h=a.length;e<h;e++)c[e]=b.call(d,a[e],e,a);return c}function n(a,b){a=Math.round(Math.abs(a));return isNaN(a)?b:a}function x(a){var b=c.settings.currency.format;"function"===typeof a&&(a=a());return q(a)&&a.match("%v")?{pos:a,neg:a.replace("-","").replace("%v","-%v"),zero:a}:!a||!a.pos||!a.pos.match("%v")?!q(b)?b:c.settings.currency.format={pos:b,neg:b.replace("%v","-%v"),zero:b}:a}var c={version:"0.4.1",settings:{currency:{symbol:"$",format:"%s%v",decimal:".",thousand:",",precision:2,grouping:3},number:{precision:0,grouping:3,thousand:",",decimal:"."}}},w=Array.prototype.map,u=Array.isArray,v=Object.prototype.toString,o=c.unformat=c.parse=function(a,b){if(m(a))return j(a,function(a){return o(a,b)});a=a||0;if("number"===typeof a)return a;var b=b||".",c=RegExp("[^0-9-"+b+"]",["g"]),c=parseFloat((""+a).replace(/\((.*)\)/,"-$1").replace(c,"").replace(b,"."));return!isNaN(c)?c:0},y=c.toFixed=function(a,b){var b=n(b,c.settings.number.precision),d=Math.pow(10,b);return(Math.round(c.unformat(a)*d)/d).toFixed(b)},t=c.formatNumber=c.format=function(a,b,d,i){if(m(a))return j(a,function(a){return t(a,b,d,i)});var a=o(a),e=s(r(b)?b:{precision:b,thousand:d,decimal:i},c.settings.number),h=n(e.precision),f=0>a?"-":"",g=parseInt(y(Math.abs(a||0),h),10)+"",l=3<g.length?g.length%3:0;return f+(l?g.substr(0,l)+e.thousand:"")+g.substr(l).replace(/(\d{3})(?=\d)/g,"$1"+e.thousand)+(h?e.decimal+y(Math.abs(a),h).split(".")[1]:"")},A=c.formatMoney=function(a,b,d,i,e,h){if(m(a))return j(a,function(a){return A(a,b,d,i,e,h)});var a=o(a),f=s(r(b)?b:{symbol:b,precision:d,thousand:i,decimal:e,format:h},c.settings.currency),g=x(f.format);return(0<a?g.pos:0>a?g.neg:g.zero).replace("%s",f.symbol).replace("%v",t(Math.abs(a),n(f.precision),f.thousand,f.decimal))};c.formatColumn=function(a,b,d,i,e,h){if(!a)return[];var f=s(r(b)?b:{symbol:b,precision:d,thousand:i,decimal:e,format:h},c.settings.currency),g=x(f.format),l=g.pos.indexOf("%s")<g.pos.indexOf("%v")?!0:!1,k=0,a=j(a,function(a){if(m(a))return c.formatColumn(a,f);a=o(a);a=(0<a?g.pos:0>a?g.neg:g.zero).replace("%s",f.symbol).replace("%v",t(Math.abs(a),n(f.precision),f.thousand,f.decimal));if(a.length>k)k=a.length;return a});return j(a,function(a){return q(a)&&a.length<k?l?a.replace(f.symbol,f.symbol+Array(k-a.length+1).join(" ")):Array(k-a.length+1).join(" ")+a:a})};if("undefined"!==typeof exports){if("undefined"!==typeof module&&module.exports)exports=module.exports=c;exports.accounting=c}else"function"===typeof define&&define.amd?define([],function(){return c}):(c.noConflict=function(a){return function(){p.accounting=a;c.noConflict=z;return c}}(p.accounting),p.accounting=c)})(this);
+
+</script>

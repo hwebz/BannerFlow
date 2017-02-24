@@ -1,0 +1,20 @@
+<style type="text/css" media="screen">
+#custom-fb-button a {
+display: block;
+text-align: center;
+padding-top: 15px;
+width: 100px; 
+height: 30px;
+background: #3b5998;
+border: 1px solid #ccc;
+font-family: Tahoma;
+font-size: 13px;
+font-weight: bold;
+color: #fff;
+}
+</style>
+<div id="custom-fb-button">
+<a href="https://www.facebook.com/dialog/feed?app_id=87741124305&link=http%3A//www.youtube.com/attribution_link%3Fa%3DpeTV2lvno4A%26u%3D%252Fwatch%253Fv%253DirP-PvjCWAc%2526feature%253Dshare&display=popup&name=Pour%20une%202%C3%A8me%20paire%20de%20verres%20utile%20et%20de%20qualit%C3%A9%2C%20il%20y%20a%20Varilux&caption=Ajout%C3%A9e%20par%20EssilorFranceOfficel&description=Vous%20pouvez%20%C3%AAtre%20cr%C3%A9atif%20pour%20bien%20voir%20avec%20votre%202%C3%A8me%20paire%20de%20lunettes.%20Ou%20vous%20pouvez%20profiter%20des%20offres%20%22Qualissime%20by%20Varilux%22.%20Tout%20simplement.%0AD%C3%A9couvrez%20ces%20offres%20sur%20www.mavuemeslunettes.fr&picture=https%3A//i.ytimg.com/vi/irP-PvjCWAc/hqdefault.jpg&source=https%3A//www.youtube.com/v/irP-PvjCWAc%3Fversion%3D3%26autohide%3D1%26feature%3Dshare%26showinfo%3D1%26autohide%3D1%26autoplay%3D1%26attribution_tag%3DpeTV2lvno4A&ref=share&actions={%22name%22:%22S%27abonner%20sur%20YouTube%22,%20%22link%22:%22http://www.youtube.com/channel/UCGiH2zqO3G-nzAJ1CSNqWJw?sub_confirmation=1%22}&redirect_uri=https://www.youtube.com/facebook_redirect" 
+rel="external"
+target="_blank">Facebook</a>
+</div>

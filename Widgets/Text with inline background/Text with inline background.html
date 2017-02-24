@@ -1,0 +1,28 @@
+<style>
+    span{
+        background: #FFF;
+        display: inline-block;
+        line-height: normal;
+    }
+</style>
+<div id="text"></div>
+<script>
+    window.onload = function(){
+        var text = document.getElementById("text");
+        BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+            text.innerHTML = "";
+            var str = BannerFlow.text;
+            str = str.split(" ");
+            for(var i=0; i<str.length;i++){
+                text.innerHTML += "<span>"+str[i]+"&nbsp;</span>";
+            }
+        });
+        BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () {
+            var span = document.getElementsByTagName("span");
+            for(var i=0; i<span.length; i++){
+                span[i].style.padding = BannerFlow.getStyle("padding-left");
+                span[i].style.fontSize = BannerFlow.getStyle("fontSize");
+            }
+        })
+    }
+</script>

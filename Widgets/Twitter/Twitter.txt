@@ -1,0 +1,23 @@
+<style type="text/css" media="screen">
+#custom-tweet-button a {
+display: block;
+text-align: center;
+padding-top: 15px;
+width: 100px; 
+height: 30px;
+background: #00c3f3;
+border: 1px solid #ccc;
+font-family: Tahoma;
+font-size: 13px;
+font-weight: bold;
+color: #fff;
+}
+</style>
+<div id="custom-tweet-button" class="twitter-share-button">
+<a href="https://twitter.com/intent/tweet?url=https://www.youtube.com/watch?v=irP-PvjCWAc"
+rel="external"
+target="_blank">Twitter</a>
+</div>
+<script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>

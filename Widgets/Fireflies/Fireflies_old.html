@@ -1,0 +1,120 @@
+
+<script src='https://rawgithub.com/soulwire/sketch.js/master/js/sketch.min.js'></script>
+<canvas id="test"></canvas>
+<style>
+    #test{
+        position: absolute;
+        top:0;left:0;
+        display: block;
+        margin:0;
+        z-index: -5;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<script>
+    window.onload = function() {
+        
+    	BannerFlow.addEventListener(BannerFlow.INIT, function() {
+            
+            if (!BannerFlow.imageGeneratorMode) {
+                
+                
+                
+                var canvas   = document.getElementById('test'),
+                    ctx      = canvas.getContext('2d'),
+                    stack    = [],
+                    w        = window.innerWidth,
+                    h        = window.innerHeight;
+                var drawer = function(){
+                    //originally made background white
+                    // ctx.fillStyle="#222";
+                    ctx.clearRect(0,0,w,h);
+                    stack.forEach(function(el){
+                        el();  
+                    })
+                    requestAnimationFrame(drawer);
+                }
+                canvas.width = w;
+                canvas.height = h;
+                drawer();
+                var particles = [],
+                    //number of particles
+                    particleCount = 100;
+                Particle = function(x,y) {     
+                    this.x = x;
+                    this.y = y;
+                    //size of particles 
+                    this.radius = random(0.5,1.5);
+                    //colors red,green,blue,transparancy 
+                    this.rgba = 'rgba(255,255,255,'+random(.1,.8)+')';
+                    //changes speed of particle
+                    this.vx = random(-.5,.5);
+                    this.vy = random(-.5,.5);
+                    // Draw our particle to the canvas.
+                    this.draw = function(ctx) {
+                        ctx.fillStyle = this.rgba;
+                        ctx.beginPath();
+                        ctx.arc(this.x,this.y,this.radius,0,TWO_PI);
+                        ctx.fill();
+                        //adds blinking glow
+                        ctx.shadowBlur = random(15,30);
+                        //glow color
+                        ctx.shadowColor = "white";
+                    };
+                    // Update our position. 
+                    this.update = function(ctx) {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        // Bounce off edges.
+                        if(this.x + this.radius > ctx.width) {
+                            this.vx *= -1;
+                            this.x = ctx.width - this.radius;
+                        }
+                        if(this.x - this.radius < 0) {
+                            this.vx *= -1;
+                            this.x = this.radius;
+                        }
+                        if(this.y + this.radius > ctx.height) {
+                            this.vy *= -1;
+                            this.y = ctx.height - this.radius;
+                        }
+                        if(this.y - this.radius < 0) {
+                            this.vy *= -1;
+                            this.y = this.radius;
+                        }        
+                    }
+                };
+                var sketch = Sketch.create({
+                    setup: function() {
+                        var i = particleCount;
+                        while(i--) {
+                            var p = new Particle(random(0, this.width),random(0, this.height));
+                            particles.push(p);
+                        }
+                    },
+                    update: function() {
+                        var i = particleCount;
+                        while(i--) { 
+                            particles[i].update(this);
+                        }
+                    },
+                    draw: function() {
+                        var i = particleCount;
+                        while(i--) {
+                            particles[i].draw(this);
+                        }
+                    }
+                });
+                
+                
+                
+                
+            }
+            
+        });    
+        
+    };
+    
+    
+</script>

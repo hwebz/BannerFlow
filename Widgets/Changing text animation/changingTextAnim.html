@@ -1,0 +1,132 @@
+<!--
+STYLES SOM ANVÄNDS:
+1. Text color
+2. Text size
+3. Thickness
+4. Italic
+5. Letter spacing
+
+ÖVRIGA KOMMENTARER:
+1. var swipeTime 
+    -. Tiden för animation, bör vara en int.
+2. Ord som visas
+    -. Sätt mha textrutan som kommer upp vid dubbelklick, 
+        orden vid animation separeras vid radbrytning.
+3. Text alignment
+    -. Vart ska animationen stanna innan den sveper vidare?
+    -. Ställs in med stylen 'letter spacing'
+-->
+
+<div class="text"></div>
+
+<script>
+    var texts = document.getElementsByClassName("text"),
+        text = document.querySelector(".text"),
+        intervalKey = null,
+        phrases = [],
+        wordCount = 0,
+        currentWord = 0,
+        swipeTime = 2.5;
+    
+    var render = function(){
+        currentWord = 0;
+        clearInterval(intervalKey);
+        phrases = [];
+       
+        var textField = BannerFlow.text;
+        
+        for(i = 0; i < BannerFlow.text.length; i++){
+            textField = textField.replace(",<br>", "");
+            textField = textField.replace("<div>", "");
+            textField = textField.replace("</div>", ",");
+        }
+
+        if(textField.charAt(textField.length - 1) == ',')
+            textField = textField.substring(0, textField.length -1);  
+       
+        phrases = textField.split(",");            
+        wordCount = phrases.length;
+        
+        setText();
+        setAnimationEvent("AnimationIteration", text, setText);
+    }; 
+
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () {        
+        texts[0].style.color = BannerFlow.getStyle("color");
+        texts[0].style.fontSize = BannerFlow.getStyle("font-size");
+        texts[0].style.fontWeight = BannerFlow.getStyle("font-weight");
+        texts[0].style.fontStyle = BannerFlow.getStyle("font-style");
+        texts[0].style.paddingLeft = BannerFlow.getStyle("letter-spacing");
+       
+        render();
+    });   
+    
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+        texts.innerHTML = BannerFlow.text;
+        
+        texts[0].style["-webkit-animation"] = "swipe-text " + swipeTime + "s ease infinite";
+        texts[0].style["-moz-animation"] = "swipe-text " + swipeTime + "s ease infinite";
+        texts[0].style["-o-animation"] = "swipe-text " + swipeTime + "s ease infinite";
+        texts[0].style["animation"] = "swipe-text " + swipeTime + "s ease infinite";
+
+        render();
+    });    
+    function setText(){       
+        text.innerHTML = phrases[currentWord];       
+        currentWord++;
+        
+        if(currentWord >= wordCount)
+            currentWord = 0;
+        
+        var left = 30 - text.innerHTML.length * 5;         
+        text.style.left = left + "px"; 
+    }
+    function setAnimationEvent(type, element,callback){
+        var pfx = ["webkit", "moz", "MS", "o", ""];
+        for (var p = 0; p < pfx.length; p++) {
+            if (!pfx[p]) 
+                type = type.toLowerCase();
+            element.addEventListener(pfx[p] + type, callback, false);
+        }
+    }
+
+</script>
+
+<style>
+    .text{
+        font-size:30px;
+        width: 100%;
+        display: block;
+        padding-left: 10px;
+        
+        -webkit-animation: swipe-text 2.5s ease infinite;
+        -moz-animation: swipe-text 2.5s ease infinite;
+        -o-animation: swipe-text 2.5s ease infinite;
+        animation: swipe-text 2.5s ease infinite;       
+    }
+
+    @-webkit-keyframes swipe-text{
+        0%{text-shadow: -2px 0px 10px rgba(0,0,0,10); margin-left:-100%;}
+        15%{text-shadow: 0px 0 0px rgba(0,0,0,0.8); margin-left:0%;}
+        85%{text-shadow: 0px 0 0px rgba(0,0,0,0.8); margin-left:0%;}
+        100%{text-shadow: -2px 0px 10px rgba(0,0,0,10); margin-left:100%;}
+    }
+    @-moz-keyframes swipe-text{
+        0%{text-shadow: -2px 0px 10px rgba(0,0,0,10); margin-left:-100%;}
+        15%{text-shadow: 0px 0 0px rgba(0,0,0,0.8); margin-left:0%;}
+        85%{text-shadow: 0px 0 0px rgba(0,0,0,0.8); margin-left:0%;}
+        100%{text-shadow: -2px 0px 10px rgba(0,0,0,10); margin-left:100%;}
+    }
+    @-o-keyframes swipe-text{
+        0%{text-shadow: -2px 0px 10px rgba(0,0,0,10); margin-left:-100%;}
+        15%{text-shadow: 0px 0 0px rgba(0,0,0,0.8); margin-left:0%;}
+        85%{text-shadow: 0px 0 0px rgba(0,0,0,0.8); margin-left:0%;}
+        100%{text-shadow: -2px 0px 10px rgba(0,0,0,10); margin-left:100%;}
+    }
+    @keyframes swipe-text{
+        0%{text-shadow: -2px 0px 10px rgba(0,0,0,10); margin-left:-100%;}
+        15%{text-shadow: 0px 0 0px rgba(0,0,0,0.8); margin-left:0%;}
+        85%{text-shadow: 0px 0 0px rgba(0,0,0,0.8); margin-left:0%;}
+        100%{text-shadow: -2px 0px 10px rgba(0,0,0,10); margin-left:100%;}
+    }
+</style>

@@ -1,0 +1,39 @@
+<script>
+    window.onload = function () {
+        
+        var hor = document.getElementById('hor');
+        var vert = document.getElementById('vert');
+        
+        BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () {
+            hor.style.borderWidth = BannerFlow.getStyle("letterSpacing");
+            vert.style.borderLeftWidth = BannerFlow.getStyle("lineHeight");
+            hor.style.borderColor = BannerFlow.getStyle("color");
+            vert.style.borderColor = BannerFlow.getStyle("color");
+        });
+    }
+</script>
+<style>
+    html,body{height: 100%; margin:0; padding: 0; overflow: hidden;}
+    #hor-align{position: relative; top: 50%;}
+    #hor {
+        border-width: 1px;
+        border-color: #CCCCCC;
+        border-style: none none dashed;
+        color: #fff;
+    }
+    #vert-align{
+        display: block;
+        margin: 0 auto;
+        width: 1px;
+        height: 100%;
+    }
+    #vert{
+        border-left: 1px;
+        border-color: #CCCCCC;
+        border-style: dashed;
+        height: 100%;
+        width: 1px;
+    }
+</style>
+<div id="hor-align"><div id="hor"></div></div>
+<div id="vert-align"><div id="vert"></div></div>

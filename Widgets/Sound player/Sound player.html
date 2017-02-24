@@ -1,0 +1,61 @@
+<div class="audio-holder">
+
+</div>
+<style type="text/css">
+    .audio-holder{
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+    }
+    audio{
+        width: 100%;
+        height: 100%;
+    }
+    audio::-webkit-media-controls-fullscreen-button {
+        display: none;
+    }
+    audio::-webkit-media-controls-play-button {}
+    audio::-webkit-media-controls-timeline {}
+    audio::-webkit-media-controls-current-time-display{}
+    audio::-webkit-media-controls-time-remaining-display {}
+    audio::-webkit-media-controls-time-remaining-display {}
+    audio::-webkit-media-controls-mute-button {}
+    audio::-webkit-media-controls-toggle-closed-captions-button {}
+    audio::-webkit-media-controls-volume-slider {}
+</style>
+<script>
+    window.onload = function () {
+        BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+            //Remove old video player
+            while(document.getElementsByTagName("audio").length > 0) {
+                var element = document.getElementsByTagName("audio")[0];
+                element.parentNode.removeChild(element);
+            }
+            if(BannerFlow.getText().indexOf("//") != -1 && BannerFlow.getText().indexOf(".") != -1) {
+
+                var url = BannerFlow.getText().substring(0,BannerFlow.getText().lastIndexOf("."));
+                var video = document.createElement('audio');
+                var s1 = document.createElement("source");
+                s1.setAttribute("type", "audio/mpeg");
+                s1.setAttribute("src", url + ".mp3");
+                video.appendChild(s1);
+                video.muted = false;
+                video.autoplay = true;
+                video.loop = true;
+                var rsOnBannerLoop = true;
+                video.controls = true;
+                BannerFlow.addEventListener(BannerFlow.START_ANIMATION, function(){
+                    if(video.readyState == 4 && video.loop == true && rsOnBannerLoop){
+                        video.currentTime = 0;
+                        video.play();
+                    }
+                    else if(video.readyState == 4 && video.loop == false && !rsOnBannerLoop){
+                        video.pause();
+                    }
+                })
+                document.getElementsByClassName('audio-holder')[0].appendChild(video);
+                video.play();
+            }
+        });
+    }
+</script>

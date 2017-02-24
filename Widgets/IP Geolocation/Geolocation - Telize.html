@@ -1,0 +1,28 @@
+<script type="application/javascript">
+    var replacement = "#city#";
+    var c;
+
+    var request = new XMLHttpRequest();
+    request.open("GET", "https://www.telize.com/geoip", false);
+    request.send(null)
+    json = JSON.parse(request.responseText);
+    c = json.country;
+    BannerFlow.addEventListener(BannerFlow.TEXTS_RECEIVED, function () {
+        if(BannerFlow.texts) {
+            for(var key in BannerFlow.texts) { 
+                if (BannerFlow.texts.hasOwnProperty(key)) {
+                    s = BannerFlow.texts[key].value;
+
+                    var city = c;
+
+                    var pos = s.indexOf(replacement);
+
+                    if(pos !== -1) {
+                        s = (pos != 0 ? s.substring(0,pos) : "") + city + s.substr(pos + replacement.length);
+                        BannerFlow.setTextByKey(key, s)
+                    }
+                }
+            }
+        }
+    });
+</script>

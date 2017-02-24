@@ -1,0 +1,13 @@
+<script>
+    var delay = 4;
+    
+    var interval;
+    window.onload = function () {
+        BannerFlow.addEventListener(BannerFlow.START_ANIMATION, function () {
+            if(interval) clearInterval(interval);
+            interval = setInterval(function () {
+                BannerFlow.nextLoop(true);
+            }, delay * 1000);
+        });
+    }
+</script>

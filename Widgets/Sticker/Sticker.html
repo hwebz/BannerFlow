@@ -1,0 +1,146 @@
+<!--
+STYLES SOM ANVÄNDS:
+1. Text size
+2. Thickness
+3. Text color
+4. Italic
+5. Letter spacing
+6. Font
+
+ÖVRIGA KOMMENTARER:
+1. BackgroundColor
+    -. Ska sättas till färgen på stickern med en color picker.
+-->
+
+<div class="block">
+    <i id="sub_a" class="hovicon effect-2 sub-a"><span id="text"></span></i>
+</div>
+
+<script>
+    var backgroundColor = '#FFF',
+        sub_a = document.getElementById("sub_a");
+    
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+        document.getElementById("text").innerHTML = BannerFlow.text;        
+        var text = BannerFlow.getText();
+        var textLength = text.length;
+        
+        if(textLength == 0 || textLength == null || textLength == 'undefined')
+            BannerFlow.setText(""); 
+        resize();
+    });
+
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () {
+        document.getElementById("text").style.color = BannerFlow.getStyle("color");
+        document.getElementById("text").style.fontWeight = BannerFlow.getStyle("font-weight");
+        document.getElementById("text").style.fontStyle = BannerFlow.getStyle("font-style");
+        document.getElementById("text").style.fontFamily = BannerFlow.getStyle("font");
+
+        resize();
+    });
+
+    BannerFlow.addEventListener(BannerFlow.RESIZE, resize);
+    BannerFlow.addEventListener(BannerFlow.INIT, resize);
+    
+    function resize () {
+        var width = BannerFlow.getWidth();
+        var height = BannerFlow.getHeight();
+        var lineHeight = BannerFlow.getStyle("line-height");
+        
+        document.getElementById("text").style.fontSize = BannerFlow.getStyle("font-size");
+        
+        var textWidth = document.getElementById("text").offsetWidth;
+        var fontSize = parseInt(BannerFlow.getStyle("font-size"));
+
+        var smallest = Math.min(width, height);     
+        
+        document.getElementById("sub_a").style.height = smallest - 8 + 'px';
+        document.getElementById("sub_a").style.width = smallest - 8 + 'px';
+        
+        document.getElementsByClassName("block")[0].style.height = smallest + 'px';
+        document.getElementsByClassName("block")[0].style.width = smallest + 'px';
+        
+        document.getElementById("sub_a").style.lineHeight = smallest - 20 + 'px';
+        document.getElementById("sub_a").style.textWidth = smallest + 'px';
+
+        var newFontSize = (smallest/textWidth) * fontSize * 0.7;
+        document.getElementById("text").style.fontSize = newFontSize + 'px';       
+    }       
+</script>
+
+<style>
+    .hovicon {
+        display: inline-block;
+        font-size: 45px;
+        line-height: 90px;
+        cursor: pointer;
+        margin: 4px;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        text-align: center;
+        position: relative;
+        text-decoration: none;
+        z-index: 1;
+        color: #fff;
+        white-space: nowrap;
+    }
+    .hovicon:after {
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        content: '';
+        
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+    }
+    .hovicon:before {
+        speak: none;
+        font-size: 48px;
+        line-height: 90px;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        display: block;
+        
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: antialiased;
+        -o-font-smoothing: antialiased;
+    }
+    .hovicon.effect-2 {
+        color: #eea303;
+        box-shadow: 0 0 0 3px #fff;
+        
+        -webkit-transition: color 0.3s;
+        -moz-transition: color 0.3s;
+        transition: color 0.3s;
+    }
+    .hovicon.effect-2:after {
+        top: -2px;
+        left: -2px;
+        padding: 2px;
+        z-index: -1;
+        background: #fff;
+        
+        -webkit-transition: -webkit-transform 0.2s, opacity 0.2s;
+        -moz-transition: -moz-transform 0.2s, opacity 0.2s;
+        -o-transition: transform 0.2s, opacity 0.2s;
+        transition: transform 0.2s, opacity 0.2s;
+    }
+    .hovicon.effect-2.sub-a:hover, .hovicon.effect-2.sub-a:hover i {
+        color: #eea303;
+    }
+    .hovicon.effect-2.sub-a:hover:after {
+        -webkit-transform: scale(0.90);
+        -moz-transform: scale(0.90);
+        -ms-transform: scale(0.90);
+        transform: scale(0.90);
+    }
+    #text {
+        pointer-events: none;
+    }
+</style>

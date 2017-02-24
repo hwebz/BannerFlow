@@ -1,0 +1,94 @@
+<!--
+http://codepen.io/rafaelrinaldi/pen/oCiaw
+
+STYLES SOM ANVÄNDS:
+1. Text color
+2. Text size
+3. Thickness
+4. Italic
+-->
+
+<p class='magic-text' data-magic-text></p>
+
+<script>
+    var change = document.getElementsByClassName("magic-text");
+
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () { 
+        if(BannerFlow.text && BannerFlow.text.length > 0) {  
+            change[0].innerHTML = BannerFlow.text;
+            splitText();
+            animateText();
+        } else {
+            BannerFlow.setText("BannerFlow");
+        }
+        
+    });
+
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () {
+        change[0].style.color = BannerFlow.getStyle("color");
+        change[0].style.fontSize = BannerFlow.getStyle("font-size");
+        change[0].style.fontWeight = BannerFlow.getStyle("font-weight");
+        change[0].style.fontStyle = BannerFlow.getStyle("font-style");
+        change[0].style.lineHeight = BannerFlow.getStyle("line-height");
+    }); 
+
+
+    function stringToArray(s) {
+        var array = [],
+            length = s.length,
+            index = 0;
+
+        for(; index < length; ++index) {
+            array.push(s[index]);
+        }
+        return array;
+    }
+
+    function splitText() {
+        
+        var context = document.querySelectorAll('[data-magic-text]')[0],
+            contents = context.innerText,
+            letters = stringToArray(contents),
+            markup = '';
+
+        letters.forEach(function(letter) {
+            markup += '<span>' + letter + '</span>';
+        });
+        context.innerHTML = markup;  
+    }
+
+    var visIndex;
+    function animateText() {
+        var context = document.querySelectorAll('[data-magic-text]')[0],
+            delay = 200;
+        visIndex = 0;
+        for(var i = 0; i < context.childNodes.length; i++) {
+            setTimeout(makeVisible, delay * (i / 15));
+        }
+    }
+    
+    function makeVisible() {
+        var child = document.querySelectorAll('[data-magic-text]')[0].childNodes[visIndex];
+        child.classList.add('is-visible');
+        visIndex++;
+    }
+
+</script>
+
+<style>
+    p {
+        font-size: 2em;
+        font-weight: bold;
+        line-height: 1.75;
+    }
+    .magic-text span {
+        opacity: 0;
+        transform: translateY(3.5px);
+        transition: all 0.25s ease-out;
+    }
+    .magic-text span.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+</style>

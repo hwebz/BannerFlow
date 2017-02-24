@@ -1,0 +1,141 @@
+<!--
+https://css-tricks.com/snippets/css/ribbon/
+
+STYLES SOM ANVÄNDS:
+1. Text color
+    -. ribbonColor, färg på bandet
+
+ÖVRIGA KOMMENTARER:
+1. textColor
+    -. Bör ha en egen color picker för att ändra färg på text
+2. Höjden är inte justerbar
+-->
+
+<h1 class="ribbon">
+    <strong class="ribbon-content"><span id="text">BannerFlow</span></strong>
+</h1>
+
+<script>
+    var textColor = "#FFF",
+        ribbonColor = "#FFF",
+        ribbon = document.getElementsByClassName("ribbon"),
+        head = document.head || document.getElementsByClassName('ribbon')[0],
+        style = document.createElement('style');
+
+        style.type = 'text/css';
+        head.appendChild(style);
+    
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+        document.getElementById("text").innerHTML = BannerFlow.text;
+        
+        var text = BannerFlow.getText();
+        var textLength = text.length;
+                
+        if(textLength == 0 || textLength == null || textLength == 'undefined') {
+            BannerFlow.setText("&nbsp");
+        } 
+    });
+
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () { 
+        var rgb = BannerFlow.getStyle("color").split('(')[1].split(')')[0].split(',');
+        ribbonColor = rgbToHex(Number(rgb[0]), Number(rgb[1]), Number(rgb[2]));
+       
+        var diff1 = colorLuminance(ribbonColor, -0.1);
+        var diff2 = colorLuminance(ribbonColor, -0.3);
+
+        var css = '.ribbon {background-color: ' + ribbonColor + ';} .ribbon:before, .ribbon:after {color: ' + diff1 + ';} .ribbon .ribbon-content:before, .ribbon .ribbon-content:after {border-color: ' + diff2 + ' transparent transparent transparent;}';
+        if (style.styleSheet){
+            style.styleSheet.cssText = css;
+        } else {
+            while (style.firstChild) {
+                style.removeChild(style.firstChild);
+            }
+            style.appendChild(document.createTextNode(css));
+        }
+    });
+
+    function colorLuminance(hex, lum) {
+        hex = String(hex).replace(/[^0-9a-f]/gi, '');
+        if (hex.length < 6) {
+            hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        }
+        lum = lum || 0;
+
+        var rgb = "#", c, i;
+        for (i = 0; i < 3; i++) {
+            c = parseInt(hex.substr(i * 2, 2), 16);
+            c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+            rgb += ("00" + c).substr(c.length);
+        }
+        return rgb;
+    }
+    
+    function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
+    
+    BannerFlow.addEventListener(BannerFlow.RESIZE, resize);
+    
+    function resize () {
+        var width = window.innerWidth;
+        var figure = document.getElementsByClassName("ribbon"); 
+        var newWidth = Math.floor(width);
+        
+        for(i = 0; i < figure.length; i++) {
+            figure[i].style.width =  newWidth - 128 + 'px'; 
+        }                 
+    }   
+</script>
+
+<style>
+    .ribbon {
+        font-size: 16px !important;
+        position: absolute;
+        text-align: center;
+        padding: 16px 32px; 
+        margin-top: 5px;
+        margin-left: 32px;
+        margin-right: 32px;
+    }
+    .ribbon #text {
+        color: #FFF;
+    }
+    .ribbon:before, .ribbon:after {
+        content: "";
+        position: absolute;
+        display: block;
+        bottom: -16px;
+        border: 24px solid; 
+        z-index: -1;
+    }
+    .ribbon:before {
+        left: -32px;
+        border-right-width: 24px;
+        border-left-color: transparent;
+    }
+    .ribbon:after {
+        right: -32px;
+        border-left-width: 24px;
+        border-right-color: transparent;
+    }
+    .ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+        content: "";
+        position: absolute;
+        display: block;
+        border-style: solid;
+        bottom: -16px;
+    }
+    .ribbon .ribbon-content:before {
+        left: 0;
+        border-width: 16px 0 0 16px;
+    }
+    .ribbon .ribbon-content:after {
+        right: 0;
+        border-width: 16px 16px 0 0;
+    }
+</style>

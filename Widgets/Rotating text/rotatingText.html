@@ -1,0 +1,157 @@
+<!--
+STYLES SOM ANVÄNDS:
+1. Text color
+2. Text size
+3. Thickness
+
+ÖVRIGA KOMMENTARER:
+1. <p></p> 
+    -. Sätter den statiska texten.
+2. style="color:#000" 
+    -. Sätter färg på den statiska texten.
+-->
+
+<div class="text" style="color:#000">
+    <p>Hi!</p>
+    <p id="test"></p>
+</div>
+
+<script>
+    var change = document.getElementsByClassName("text"),
+        words = document.getElementsByClassName("word"),
+        wordArray = [],
+        currentWord = 0,
+        intervalKey = null;
+
+    var render = function(){
+        clearInterval(intervalKey);
+        wordArray = [];
+        currentWord = 0;
+        
+        console.log("text", BannerFlow.text)
+        var textField = BannerFlow.text.replace(/\s/g, '&nbsp;');
+        
+        for(i = 0; i < BannerFlow.text.length; i++){
+            textField = textField.replace(",<br>", "");
+            textField = textField.replace("<div>", "");
+            textField = textField.replace("</div>", ",");
+        }
+
+        if(textField.charAt(textField.length - 1) == ',')
+            textField = textField.substring(0, textField.length -1);  
+            
+        var textRot = textField.split(",");        
+        var str = "";
+
+        for(i = 0; i < textRot.length; i++) {           
+            str += "<span class='word'>" + textRot[i] + "</span>";
+        }
+        
+        document.getElementById("test").innerHTML = str;  
+        words = document.getElementsByClassName("word");
+
+        for (var i = 0; i < words.length; i++) {
+            splitLetters(words[i]);
+        }
+        
+        words[currentWord].style.opacity = 1;       
+        changeWord();
+        intervalKey = setInterval(changeWord, 1550);
+    };
+        
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+        render();
+    });  
+
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () {        
+
+        change[0].style.fontSize = BannerFlow.getStyle("font-size");
+        change[0].style.fontWeight = BannerFlow.getStyle("font-weight");
+        
+        render();
+    }); 
+
+
+    function changeWord() {
+        var cw = wordArray[currentWord];
+        var nw = currentWord == words.length - 1 ? wordArray[0] : wordArray[currentWord + 1];
+        
+        for (var i = 0; i < cw.length; i++) {
+            animateLetterOut(cw, i);
+        }
+        for (var i = 0; i < nw.length; i++) {
+            nw[i].className = 'letter behind';
+            nw[0].parentElement.style.opacity = 1;          
+            animateLetterIn(nw, i);
+        }
+        currentWord = (currentWord == wordArray.length - 1) ? 0 : currentWord + 1;
+    }
+
+    function animateLetterOut(cw, i) {
+        setTimeout(function() {
+            cw[i].className = 'letter out';
+        }, i * 80);
+    }
+
+    function animateLetterIn(nw, i) {
+        setTimeout(function() {
+            nw[i].className = 'letter in';
+        }, 340 + (i * 80));
+    }
+
+    function splitLetters(word) {
+        var content = word.innerText;
+        word.innerHTML = '';
+        var letters = [];
+        
+        for (var i = 0; i < content.length; i++) {
+            var letter = document.createElement('span');
+            letter.className = 'letter';
+            letter.style.color = BannerFlow.getStyle("color");
+            letter.innerHTML = content.charAt(i);
+            word.appendChild(letter);
+            letters.push(letter);
+        }
+        wordArray.push(letters);
+    }
+        
+</script>
+
+<style>
+    .text {
+        position: absolute;
+        width: 100%;
+        font-family: sans-serif;
+        font-weight: 600;
+        font-size: 40px;
+    }
+    p {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0;
+    }
+    .word {
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+        color: #000;
+    }
+    .letter {
+        display: inline-block;
+        position: relative;
+        float: left;
+        transform: translateZ(25px);
+        transform-origin: 50% 50% 25px;
+    }
+    .letter.out {
+        transform: rotateX(90deg);
+        transition: transform 0.32s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    .letter.behind {
+        transform: rotateX(-90deg);
+    }
+    .letter.in {
+        transform: rotateX(0deg);
+        transition: transform 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+</style>

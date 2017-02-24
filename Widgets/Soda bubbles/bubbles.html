@@ -1,0 +1,132 @@
+<!--
+http://codepen.io/tmrDevelops/pen/mJELXj
+
+STYLES SOM ANVÄNDS:
+1. Background color
+2. Text color
+3. Text size
+
+ÖVRIGA KOMMENTARER:
+1. var 'num'
+    -. Antalet bubblor.
+    -. Sätts med font-size
+2. var 's'
+    -. Sätter storleken på bubblorna
+    -. Hastigheten beror på storleken.
+3. var 'rad'
+    -. Något med bredden...???
+-->
+<canvas id="canvas"></canvas>
+
+<script>
+    var num = 20,   
+        s = [10, 15, 12, 5, 3],
+        rad = 5;
+
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () {
+        BannerFlow.getStyle("background-color");
+        
+        var str = BannerFlow.getStyle("font-size");
+        var n = str.indexOf(" ");
+        num = str.slice(0, n-1);
+              
+        load();
+    });
+    
+    window.requestAnimFrame = (function() {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+
+            function(callback) {
+            window.setTimeout(callback, 1000 / 60);
+        };
+    })();
+
+    function _S() {
+        var curr = s.length;        
+        var cur_ = Math.floor(Math.random() * curr);
+        return s[cur_];
+    }
+
+    function FizzBuzz(c) {
+        this.c = c;
+        this.$ = c.getContext('2d');
+        this.b = {};
+        this.go();
+    }
+
+    FizzBuzz.prototype.go = function() {
+        this.x = this.b.x = Math.random() * (this.c.width - rad);
+        this.y = this.b.y = Math.random() * (this.c.width - rad);
+        this.radi = _S();       
+        this.xPos = Math.random() * 9;
+        this.draw();
+    };
+
+    FizzBuzz.prototype.draw = function() {
+        this.$.globalCompositeOperation = 'source-over';
+        this.$.fillStyle = BannerFlow.getStyle("color");
+        this.$.globalCompositeOperation = 'lighter';
+        this.$.save();
+        this.$.beginPath();
+        this.$.arc(this.x, this.y, this.radi, 0, Math.PI * 2, false);
+        this.$.fill();
+        this.$.restore();
+    };
+
+    FizzBuzz.prototype.disp = function() {
+        this.x = (Math.sin(this.xPos -= 0.35) * this.radi * 0.16 + 6) + this.b.x;
+        this.y -= this.radi * 0.33;
+        if (this.y <= -100)
+            this.y = this.c.height + rad;
+        this.draw();
+    };
+
+    function Fizz(c) {
+        this.c = c;
+        this.$ = c.getContext('2d');
+        this.arr = [];
+    }
+
+    Fizz.prototype.add = function(buzz) {
+        this.arr.push(buzz);
+    };
+
+    Fizz.prototype.upd = function() {
+        this.$.clearRect(0, 0, this.c.width, this.c.height);
+
+        for (var i in this.arr) {
+            this.arr[i].disp();
+        }
+    };
+
+    window.addEventListener('resize', function() {
+        c.width = w = window.innerWidth;
+        c.height = h = window.innerHeight;
+        c.style.position = 'absolute';
+        c.style.left = (window.innerWidth - w) * .01 + 'px';
+        c.style.top = (window.innerHeight - h) * .01 + 'px';
+    });
+
+    function load() {
+        var c = document.getElementById('canvas');
+        var $ = c.getContext('2d');
+        var w = c.width = window.innerWidth;
+        var h = c.height = window.innerHeight;
+
+        var fb = new Fizz(c);
+        for (var i = 0, u = num; i < u; i++) {
+            var buzz = new FizzBuzz(c);
+            fb.add(buzz);
+        }
+        _t();
+
+        function _t() {
+            fb.upd();
+            window.requestAnimFrame(_t);
+        }
+    };
+</script>

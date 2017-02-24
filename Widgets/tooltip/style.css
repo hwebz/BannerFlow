@@ -1,0 +1,65 @@
+/* Styling of the widget */
+#tooltip-wrapper {
+  position: absolute;
+  opacity: 0;
+  transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+}
+
+#tooltip {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    background: black;
+    display: inline-block;
+    max-width: 100%;
+  border: 1px solid white;
+  //transform: scale(2);
+  transform-origin: top left;
+  position: relative;
+}
+
+#tooltip:before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 7px solid white;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  bottom: -14px;
+}
+
+#tooltip:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 8px solid black;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  bottom: -14px;
+}
+
+#tooltip #content {
+    color: white;
+}
+
+#hover-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 0, 0, 0.3);
+    width: 300px;
+    height: 300px;
+    z-index: 9999;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}

@@ -1,0 +1,6 @@
+/* Styling of the widget */
+#canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}

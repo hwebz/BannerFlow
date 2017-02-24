@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sketch Drawing</title>
+	<link rel="stylesheet" href="./main.css"/>
+</head>
+<body>
+	<div class="sketch-draw-container">
+		<div id="sketchDrawContainer" class="sketch-wrapper">
+			<canvas id="resultCanvas" class="canvas"></canvas>
+			<canvas id="sketchCanvas" class="canvas"></canvas>
+			<span id="settings" class="setting-icon">&nbsp;</span>
+			<span id="erasorIcon" class="eraser-icon">&nbsp;</span>
+			<div id="cursorImage" class="cursor-image">&nbsp;</div>
+			<div id="settingContainer" class="setting-container">
+				<span id="settingClose" class="close-setting">&nbsp;</span>
+
+				<div class="setting-row">
+					<span id="settingSizeLabel" class="setting-label setting-size">&nbsp;</span>
+					<input id="settingSizeInput" class="setting-input" value="1" type="text"/>
+				</div>
+				<div class="setting-row">
+					<span id="settingColorLabel" class="setting-label setting-color">&nbsp;</span>
+					<span class="color-input active" style="background-color: rgb(85, 85, 85);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(121, 0, 0);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(123, 46, 0);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(125, 73, 0);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(130, 123, 0);">&nbsp;</span>
+
+					<span class="color-input" style="background-color: rgb(64, 102, 24);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(0, 94, 32);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(0, 88, 38);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(0, 89, 82);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(0, 91, 127);">&nbsp;</span>
+
+					<span class="color-input" style="background-color: rgb(0, 54, 99);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(0, 33, 87);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(13, 0, 76);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(50, 0, 75);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(75, 0, 73);">&nbsp;</span>
+
+					<span class="color-input" style="background-color: rgb(123, 0, 70);">&nbsp;</span>
+					<span class="color-input" style="background-color: rgb(122, 0, 38);">&nbsp;</span>
+				</div>
+				<!--
+				<div class="setting-row">
+					<input id="formName" type="text" placeholder="Name" class="form-input" />
+				</div>
+				<div class="setting-row">
+					<input id="formEmail" type="email" placeholder="Email" class="form-input" />
+				</div>
+				<div class="setting-row">
+					<button id="formSubmit" class="form-submit">Submit</a>
+				</div>
+				-->
+			</div>
+		</div>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<script src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+
+* {
+	webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+	margin: 0;
+	padding: 0;
+}
+.banner-wrapper{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	background: #000;
+	text-align: center;
+	padding: 20px 0;
+	overflow: hidden;
+
+	/*
+	opacity: 0;
+	-webkit-animation: fadeIn 1s ease-in-out 1s forwards;
+	-moz-animation: fadeIn 1s ease-in-out 1s forwards;
+	-ms-animation: fadeIn 1s ease-in-out 1s forwards;
+	-o-animation: fadeIn 1s ease-in-out 1s forwards;
+	animation: fadeIn 1s ease-in-out 1s forwards;	
+	*/
+}
+
+.banner-content{
+	position: relative;
+	top: 50%;
+	left: 50%;
+	
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.banner-logo{
+	width: 118px;
+	height: 31px;
+	margin: 0 auto;
+	background: url('../imgs/niteco.png') no-repeat center center;
+}
+.banner-text{
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	padding: 10px 0 0;
+	visibility: hidden;
+}
+.words-wrapper {
+	visibility: hidden;
+}
+.word {
+	margin-left: 3px;
+	display: inline-block;
+}
+.letter {
+	visibility: hidden;
+	display: inline-block;
+	-webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.word:nth-child(1){
+	margin-left: 0px;
+}

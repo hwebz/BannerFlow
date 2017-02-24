@@ -1,0 +1,24 @@
+
+.widget-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+svg {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.percent-text {
+  font-family:arial,sans-serif;
+  font-size: 12px;
+  position: absolute;
+  top: 50%;
+  opacity: 0;  
+}

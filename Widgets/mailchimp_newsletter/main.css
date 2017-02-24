@@ -1,0 +1,32 @@
+/* Styling of the widget */
+#mc_embed_signup{
+    background:transparent; 
+    clear:left; 
+    font:14px Helvetica,Arial,sans-serif; 
+}
+#mce-success-response {
+    display:none;
+    padding:5px;
+    border:1px solid #cccccc;
+    border-radius:5px;
+    background:#ffffff;width:auto;
+}
+#aria-area {
+    position: absolute; 
+    left: -5000px;
+}
+
+#mce-responses {
+	position: absolute;
+    top:0;
+    left:0;
+    padding:0;    
+}
+
+#mce-error-response {
+    display:none;
+    padding:5px;
+    border:1px solid #cccccc;
+    border-radius:5px;
+    background:#ffffff;width:auto;
+}

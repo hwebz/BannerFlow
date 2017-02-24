@@ -1,0 +1,29 @@
+<script>
+    var delay = 4;
+    var interval;
+    var stop = false;
+    var run = true;
+
+    window.onload = function () {
+        document.onmouseover = function() {mouseOver()};
+        document.onmouseout = function() {mouseOut()};
+
+        function mouseOver(){
+            stop = true;
+            run = false;
+        }
+        function mouseOut(){
+            stop = false;
+            run = true;
+        }
+        BannerFlow.addEventListener(BannerFlow.START_ANIMATION, function () {
+            if(interval) clearInterval(interval);
+            interval = setInterval(function () {
+                if(run){
+                    BannerFlow.nextLoop(true);
+                }
+            }, delay * 1000);
+
+        });
+    }
+</script>

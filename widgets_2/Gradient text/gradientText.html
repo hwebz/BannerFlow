@@ -1,0 +1,207 @@
+<!--
+STYLES SOM ANVÄNDS:
+1. Background color
+2. Text size
+    -. Variabel 'N_PARTICLES' justeras med font-size och är satt som 
+        antalet partiklar/bilder som kommer att synas samtidigt.
+3. Line height
+    -. Variabeln 'angle_v' ändras med line-height och justerar hur rotationen
+        av partiklarna/bilderna.
+
+ÖVRIGA KOMMENTARER:
+1. Partiklarna/bilderna läses från 'BannerFlow.text', här anger du en 
+    url till en bild. Om du vill ange fler än en bild gör du en radbrytning
+    och anger en ytterligare en url.
+2. Variabeln 'scale' justerar skalan (0-1) på bilderna som läses in.
+-->
+
+<canvas class='canvas'></canvas>
+
+<script>
+    Object.getOwnPropertyNames(Math).map(function(p) {
+        window[p] = Math[p]
+    });
+
+    var figure = document.getElementsByClassName("canvas"),
+        N_PARTICLES = 10,
+        angle_v = 10,
+        scale = 0.3;
+        
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () {
+        figure[0].style.backgroundColor = BannerFlow.getStyle("background-color");
+        
+        var str = BannerFlow.getStyle("font-size");
+        var n = str.indexOf(" ");
+        N_PARTICLES = str.slice(0,n-1);
+
+        var spd = BannerFlow.getStyle("line-height");
+        var m = spd.indexOf(" ");
+        angle_v = parseInt(rand(- spd.slice(0,m-1), spd.slice(0,m-1)));
+
+        Particle();
+        initCanvas();
+    });      
+          
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+        var textField = BannerFlow.text;
+
+        for(i = 0; i < BannerFlow.text.length; i++){
+            textField = textField.replace(",<br>", "");
+            textField = textField.replace("<div>", "");
+            textField = textField.replace("</div>", ",");
+        }       
+        if(textField.charAt(textField.length - 1) == ',')
+            textField = textField.substring(0, textField.length -1);  
+        
+        if (textField.indexOf('http') == -1)
+            textField = 'http://pngimg.com/upload/small/star_PNG1583.png';
+        
+        console.log(textField);
+        var images = textField.split(",");
+        confettis = [];
+        
+        for (i = 0; i< images.length; i++) {
+            var imgURL = new Image;
+            imgURL.src = images[i];
+            confettis.push(imgURL);            
+        }
+        
+        initCanvas();
+    });  
+      
+    var c = document.querySelector('.canvas'), 
+        w, h, 
+        ctx = c.getContext('2d'),
+        confettis = [],
+        particles = [], 
+        source = {}, 
+        t = 0, 
+        req_id = null;
+
+    var Particle = function(i) {
+        var confetti, 
+            pos, 
+            v, 
+            a, 
+            c_angle,
+
+            delay = rand(N_PARTICLES, 0, 1);
+
+        this.active = false;
+
+        this.shoot = function(ctx) {
+            var angle, angle_var, val, 
+                hue = rand(360, 0, 1);
+
+            if(t - delay >= 0) {
+                this.active = true;
+                confetti = confettis[floor(random() * confettis.length)];
+
+                pos = { 'x': source.x + rand(-10, 10), 'y': source.y };
+                a = { 'x': 0, 'y': .4 };
+                
+                angle = rand(PI/8, -PI/8) - PI/2;
+                c_angle = 0;
+                val = rand(h/21, h/60);
+                v = {
+                    'x': val*cos(angle), 
+                    'y': val*sin(angle)
+                };
+            }
+        };
+
+        this.motionUpdate = function() {
+            v.x += a.x;
+            v.y += a.y;
+            pos.x += round(v.x);
+            pos.y += round(v.y);
+            c_angle += angle_v;
+
+            if(pos.y > h | pos.x < 0 | pos.x > w) {
+                pos = { 'x': source.x, 'y': source.y };
+                this.active = false;
+            }
+        };
+
+        this.draw = function(ctx) {
+            ctx.save(); 
+
+            ctx.translate(pos.x, pos.y);
+            ctx.rotate(c_angle * Math.PI / 180);
+            ctx.scale(scale, scale);
+            ctx.drawImage(confetti, -(confetti.width/2), -(confetti.height/2));
+
+            ctx.restore(); 
+            this.motionUpdate();
+        };
+    }
+
+    var rand = function(max, min, _int) {
+        var max = (max === 0 || max)?max:1, 
+            min = min || 0, 
+            gen = min + (max - min)*random();
+
+        return (_int)?round(gen):gen;
+    };
+
+    var initCanvas = function() {
+        var s = getComputedStyle(c);
+
+        if(req_id) {
+            particles = [];
+            cancelAnimationFrame(req_id);
+            req_id = null;
+            t = 0;
+        }
+
+        w = c.width = ~~s.width.split('px')[0];
+        h = c.height = ~~s.height.split('px')[0];
+
+        source = { 'x': round(w/2), y: h };
+
+        for(var i = 0; i < N_PARTICLES; i++) {
+            particles.push(new Particle(i));
+        }
+
+        drawOnCanvas();
+    };
+
+    var drawOnCanvas = function() {
+        ctx.clearRect ( 0 , 0 , w, h );
+
+        for(var i = 0; i < N_PARTICLES; i++) {
+            if(particles[i].active) {
+                particles[i].draw(ctx);
+            }
+            else {
+                particles[i].shoot(ctx);
+            }
+        }
+
+        t++;
+
+        req_id = requestAnimationFrame(drawOnCanvas);
+    };
+
+    setTimeout(function() {
+        
+
+        addEventListener('resize', initCanvas, false);
+        c.addEventListener('mousemove', function(e) {
+
+            ctx.clearRect(0, 0, w, h);
+
+            source.x = e.clientX;
+            source.y = e.clientY;
+        }, false);
+    }, 15);
+
+</script>
+
+<style>
+   .canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+</style>

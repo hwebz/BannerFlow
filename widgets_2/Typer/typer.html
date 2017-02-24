@@ -1,0 +1,68 @@
+<!--
+STYLES SOM ANVÄNDS:
+1. Text color
+2. Text size
+3. Thickness
+4. Italic
+
+ÖVRIGA KOMMENTARER:
+1. Dela upp varje bokstav för sig vid utskrift för sig för att kunna
+    skriva mer än en rad och ha typsnitt som inte endast är 'monospace'.
+-->
+
+<h2 id="typer">BannerFlow</h2>
+
+<script>
+    var typer =  document.getElementById('typer');
+    
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+        typer.innerHTML = BannerFlow.text; 
+        var text = BannerFlow.getText();
+        var textLength = text.length;
+                
+        if(textLength == 0 || textLength == null || textLength == 'undefined') {
+            BannerFlow.setText("BannerFlow");
+        } 
+                
+        typer.style["width"] = textLength + "ch";       
+        
+        typer.style["-webkit-animation"] = "typing 8s steps(" + textLength + ", end), blink-caret .5s step-end infinite alternate";
+        typer.style["-moz-animation"] = "typing 8s steps(" + textLength + ", end), blink-caret .5s step-end infinite alternate";
+        typer.style["-o-animation"] = "typing 8s steps(" + textLength + ", end), blink-caret .5s step-end infinite alternate";
+
+    });
+ 
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () { 
+        typer.style["color"] = BannerFlow.getStyle("color");
+        typer.style["font"] = BannerFlow.getStyle("font-size") + " monospace";
+        typer.style["font-weight"] = BannerFlow.getStyle("font-weight");
+        typer.style["font-style"] = BannerFlow.getStyle("font-style");
+    });
+    
+</script>
+
+<style>
+    @-webkit-keyframes typing {from {width: 0;}}
+    @-moz-keyframes typing {from {width: 0;}}
+    @-o-keyframes typing {from {width: 0;}}
+    
+    @-webkit-keyframes blink-caret {50% {border-color: transparent;}}
+    @-moz-keyframes blink-caret {50% {border-color: transparent;}}
+    @-o-keyframes blink-caret {50% {border-color: transparent;}}
+
+    h2 {
+        font: 32px monospace;
+        font-weight: bold;
+        color: #000;
+        border-right: 1px solid #000;
+        width: calc(8px * 14);
+        width: 3ch;
+        white-space: nowrap;
+        overflow: hidden;
+        
+        -webkit-animation: typing 8s steps(3, end), blink-caret .5s step-end infinite alternate;
+        -moz-animation: typing 8s steps(3, end), blink-caret .5s step-end infinite alternate;
+        -o-animation: typing 8s steps(3, end), blink-caret .5s step-end infinite alternate;
+
+    }
+</style>

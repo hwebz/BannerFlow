@@ -1,0 +1,32 @@
+
+
+*,*:before,*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  
+  padding: 0;
+  margin: 0;
+}
+.widget-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+canvas {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.rope {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  width: 1px;
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}

@@ -1,0 +1,121 @@
+WIDGET
+<script>
+	// Insert user input parameters here (e.g. Youtube video URL, )
+	var inputBackgroundColor = '#ffffff';
+	var inputSpeed = 5;
+
+
+	// Widget has been loaded
+	window.onload = function() {
+
+		// Add event listeners
+		BannerFlow.addEventListener(BannerFlow.RESIZE, onResizeWidget);
+		BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, onTextChange);
+		BannerFlow.addEventListener(BannerFlow.FEED_CHANGED, onFeedUpdate);
+		BannerFlow.addEventListener(BannerFlow.STYLES_CHANGED, onStylesChanged);
+
+		if (BannerFlow.imageGeneratorMode) {
+			// Image generator
+
+		} else if (BannerFlow.editorMode) {
+			// In editor
+
+		} else {
+			// Regular playback
+
+		}
+
+		if (utils.isMobile) {
+			// Shown on mobile device
+		} else {
+			// Shown on desktop/laptop
+		}
+
+	}
+
+	// Text has changed
+	function onTextChange() {
+		var text = BannerFlow.text;
+		console.log("Text changed", text);
+	}
+
+	// Style has changed
+	function onStylesChanged() {
+		// BannerFlow.getStyle("fontSize");
+		console.log("Styles changed!");
+	}
+
+	// Feed data has changed
+	function onFeedUpdate() {
+		// Regular feed object
+		var feed = BannerFlow.feed;	
+		console.log("Feed changed", feed);
+		/*
+		// Easier to use feed object
+		var items = utils.feedToArray(BannerFlow.feed);
+		items[0].Name.value;
+		items[0].Name.targetUrl;
+		*/
+	}
+
+	// Widget has been resized
+	function onResizeWidget() {
+
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+
+		console.log("Widget size changed!");
+	}
+
+
+
+	// Utils
+	var utils = {
+		isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+		replaceStringInObjects: function (macro, replaceWith) {
+		        for (var key in BannerFlow.texts) {
+		            var txt = BannerFlow.texts[key];
+		            var txtValue = (txt.originalValue ? txt.originalValue : txt.value);
+		            
+		            if (txtValue.indexOf(macro) > -1) {
+		                BannerFlow.setTextByKey(key, txtValue.replace(macro, replaceWith));
+		            }
+		        }
+	        },
+	    htmlDecode: function ( html ) {
+	        	var a = document.createElement( 'a' ); a.innerHTML = html;
+	        	return a.textContent;
+	    	},
+	    setTargetUrl: function (targeturl) {
+		        var keys = BannerFlow.texts;
+		        for (var key in keys) {
+		            if (keys.hasOwnProperty(key)) {
+		                BannerFlow.setTargetUrlByKey(key, targeturl);
+		            }
+		        }
+	        },
+	    feedToArray: function (data) {        
+		        if (data) {
+		            var events = [];
+		            for (var i=0; i<BannerFlow.feed[0].values.length;i++) {
+		                var ev = {};
+
+		                for (var n=0; n<BannerFlow.feed.length;n++) {
+		                    var field = BannerFlow.feed[n];
+		                    ev[field.name.replace(' ', '')] = {
+		                        value: field.values[i],
+		                        targetUrl: i<field.clickUrls.length ? field.clickUrls[i] : undefined
+		                    };
+
+		                }
+
+		                events.push(ev);
+		            }
+		            return events;
+		        }
+				return [];
+		        
+		    }
+    }
+
+</script>

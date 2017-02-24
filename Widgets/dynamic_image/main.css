@@ -1,0 +1,55 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+.dynamic-image-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+
+  -webkit-perspective: 500px;
+  -moz-perspective: 500px;
+  -ms-perspective: 500px;
+  perspective: 500px;
+
+  overflow: hidden;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+}
+
+canvas {
+    position: absolute;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+}
+
+img {
+    position: absolute;
+    -webkit-transition: opacity .3s;
+    -moz-transition : opacity .3s;
+    -ms-transition : opacity .3s;
+    transition : opacity .3s;
+}
+
+.text-warning {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+
+  color: gray;
+
+  left: 0;
+  width: 100%;
+  text-align: center;
+  display: none;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div class="container">
+        <div class="inner loading">
+            <div id="map"></div>  
+            <input id="search-input" class="controls" type="text" placeholder="Search Box"/>
+
+            <div class="travel-select">
+                <span class="car effect"></span>          
+                <span class="walk effect"></span>         
+            </div>
+
+            <div class="popup">
+                <div class="popup-container">
+
+                    <div class="content"></div>
+
+                    <div class="direction">
+                        <span class="data car ">
+                            Distance : <br> Duration :
+                        </span>
+                        <span class="data walk ">
+                            Distance : <br> Duration :
+                        </span>
+                    </div>
+
+                    <div class="footer">
+                        <a href="#" class="phone icon effect"></a>
+                        <a href="#" class="home icon effect"></a>
+                        <a href="#" class="email icon effect"></a>
+                    </div>
+                    <div class="close "></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="toggle-map effect"></div>
+
+    </div>
+    <style type="text/css" scoped id="settings"></style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDJCfm026nu_AEN7fdhEWxmNV-OuJvgPg&libraries=places"></script>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,369 @@
+<div id="holder" style="display: table; table-layout: fixed; position: absolute; z-index: 994; top: 0px; -webkit-backface-visibility: hidden; backface-visibility: hidden; perspective: 150px; pointer-events: all; left: 0px;" class="animated">
+    <div id="quote" class="object-inner" style="width: 100%; -webkit-transform: rotateX(0deg) rotateY(0.001deg) scale(1) scale(1); transform: rotateX(0deg) rotateY(0.001deg) scale(1) scale(1); height: 100%; display: table-cell; transition: all 0.3s linear; -webkit-transition: all 0.3s linear; cursor: pointer; opacity: 1; font-weight: 700; font-size: 45px; text-align: left; vertical-align: middle; line-height: 0px; background-size: 100% 100%;" data-maxrows="1" data-text-field="new-text2-689d50">
+    </div>
+</div>
+
+<script>
+var mySplitText;
+window.onload = function () {
+    var holder = document.getElementById("holder");
+    var quote = document.getElementById("quote");
+    quote.opacity = 0;
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+        
+        console.log("text", BannerFlow.getText())
+        holder.style.width = BannerFlow.getWidth() + "px";
+        holder.style.height = BannerFlow.getHeight() + "px";
+        quote.innerHTML = BannerFlow.getText();
+        //if(mySplitText) mySplitText.revert();
+        resizeText(quote, BannerFlow.getWidth(), BannerFlow.getHeight(), 1);
+        run();
+    });
+    BannerFlow.addEventListener(BannerFlow.START_ANIMATION, function () {
+        quote.opacity = 1;
+        run();
+        console.log("START", BannerFlow.getStyle("animationDelay"))
+    });
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () {
+        console.log("STYLE", BannerFlow.getStyle("color"))
+        
+        quote.style.fontSize = BannerFlow.getStyle("fontSize");
+        quote.style.fontWeight = BannerFlow.getStyle("fontWeight");
+        quote.style.fontStyle = BannerFlow.getStyle("fontStyle");
+        quote.style.textShadow = BannerFlow.getStyle("textShadow");
+        quote.style.lineHeight = BannerFlow.getStyle("lineHeight");
+        quote.style.transform = BannerFlow.getStyle("transform");
+        quote.style.color = BannerFlow.getStyle("color");
+        //if(mySplitText) mySplitText.revert();
+        console.log("style", BannerFlow.getText())
+        if(BannerFlow.getText()) quote.innerHTML = BannerFlow.getText();
+        resizeText(quote, BannerFlow.getWidth(), BannerFlow.getHeight(),1,BannerFlow.getStyle("fontSize"));
+        run();
+    });
+    
+};
+</script>
+
+<style>
+    body{
+      font-family: Veron, Arial, Helvetica, sans-serif;
+        
+        overflow: hidden;
+    }
+    #holder {
+        
+    }
+    #quote  {
+        font-family: Veron, Arial, Helvetica, sans-serif;
+        overflow: visible;
+    }
+    @font-face{font-family:'Veron';src:url('//bannerflow.blob.core.windows.net/resources/veronreg-webfont-0962eac4-0529-492d-93d7-fe3e63440f66.eot');src:url('//bannerflow.blob.core.windows.net/resources/veronreg-webfont-0962eac4-0529-492d-93d7-fe3e63440f66.eot?#iefix') format('embedded-opentype'),url('//bannerflow.blob.core.windows.net/resources/veronreg-webfont-0962eac4-0529-492d-93d7-fe3e63440f66.ttf') format('truetype'),url('//bannerflow.blob.core.windows.net/resources/veronreg-webfont-0962eac4-0529-492d-93d7-fe3e63440f66.woff') format('woff'),url('//bannerflow.blob.core.windows.net/resources/veronreg-webfont-0962eac4-0529-492d-93d7-fe3e63440f66.otf') format('opentype');font-weight:400;font-style:normal}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+<script>
+
+
+! function (a) {
+    "use strict";
+    var b = a.GreenSockGlobals || a,
+        c = function (a) {
+            var e, c = a.split("."),
+                d = b;
+            for (e = 0; e < c.length; e++) d[c[e]] = d = d[c[e]] || {};
+            return d
+        },
+        d = c("com.greensock.utils"),
+        e = function (a) {
+            var b = a.nodeType,
+                c = "";
+            if (1 === b || 9 === b || 11 === b) {
+                if ("string" == typeof a.textContent) return a.textContent;
+                for (a = a.firstChild; a; a = a.nextSibling) c += e(a)
+            } else if (3 === b || 4 === b) return a.nodeValue;
+            return c
+        },
+        f = document,
+        g = f.defaultView ? f.defaultView.getComputedStyle : function () {},
+        h = /([A-Z])/g,
+        i = function (a, b, c, d) {
+            var e;
+            return (c = c || g(a, null)) ? (a = c.getPropertyValue(b.replace(h, "-$1").toLowerCase()), e = a || c.length ? a : c[b]) : a.currentStyle && (c = a.currentStyle, e = c[b]), d ? e : parseInt(e, 10) || 0
+        },
+        j = function (a) {
+            return a.length && a[0] && (a[0].nodeType && a[0].style && !a.nodeType || a[0].length && a[0][0]) ? !0 : !1
+        },
+        k = function (a) {
+            var d, e, f, b = [],
+                c = a.length;
+            for (d = 0; c > d; d++)
+                if (e = a[d], j(e))
+                    for (f = e.length, f = 0; f < e.length; f++) b.push(e[f]);
+                else b.push(e);
+            return b
+        },
+        l = ")eefec303079ad17405c",
+        m = /(?:<br>|<br\/>|<br \/>)/gi,
+        n = f.all && !f.addEventListener,
+        o = "<div style='position:relative;display:inline-block;" + (n ? "*display:inline;*zoom:1;'" : "'"),
+        p = function (a) {
+            a = a || "";
+            var b = -1 !== a.indexOf("++"),
+                c = 1;
+            return b && (a = a.split("++").join("")),
+                function () {
+                    return o + (a ? " class='" + a + (b ? c++ : "") + "'>" : ">")
+                }
+        },
+        q = String.fromCharCode(103, 114, 101, 101, 110, 115, 111, 99, 107, 46, 99, 111, 109),
+        r = String.fromCharCode(47, 114, 101, 113, 117, 105, 114, 101, 115, 45, 109, 101, 109, 98, 101, 114, 115, 104, 105, 112, 47),
+        s = function (b) {
+            return !0;
+            return -1 !== (a ? a.location : "").indexOf(String.fromCharCode(103, 114, 101, 101, 110, 115, 111, 99, 107)) && -1 !== b.indexOf(String.fromCharCode(108, 111, 99, 97, 108, 104, 111, 115, 116))
+        }(a ? a.location.host : ""),
+        t = d.SplitText = b.SplitText = function (b, c) {
+            if ("string" == typeof b && (b = t.selector(b)), !b) throw "cannot split a null element.";
+            return s ? (this.elements = j(b) ? k(b) : [b], this.chars = [], this.words = [], this.lines = [], this._originals = [], this.vars = c || {}, this.split(c), void 0) : (a.location.href = "http://" + q + r + "?plugin=SplitText", !1)
+        },
+        u = function (a, b, c, d, h) {
+            m.test(a.innerHTML) && (a.innerHTML = a.innerHTML.replace(m, l));
+            var J, K, L, M, N, O, P, Q, R, S, T, U, V, j = e(a),
+                k = b.type || b.split || "chars,words,lines",
+                n = -1 !== k.indexOf("lines") ? [] : null,
+                o = -1 !== k.indexOf("words"),
+                q = -1 !== k.indexOf("chars"),
+                r = "absolute" === b.position || b.absolute === !0,
+                s = r ? "&#173; " : " ",
+                t = -999,
+                u = g(a),
+                v = i(a, "paddingLeft", u),
+                w = i(a, "borderBottomWidth", u) + i(a, "borderTopWidth", u),
+                x = i(a, "borderLeftWidth", u) + i(a, "borderRightWidth", u),
+                y = i(a, "paddingTop", u) + i(a, "paddingBottom", u),
+                z = i(a, "paddingLeft", u) + i(a, "paddingRight", u),
+                A = i(a, "textAlign", u, !0),
+                B = a.clientHeight,
+                C = a.clientWidth,
+                D = j.length,
+                E = "</div>",
+                F = p(b.wordsClass),
+                G = p(b.charsClass),
+                H = -1 !== (b.linesClass || "").indexOf("++"),
+                I = b.linesClass;
+            for (H && (I = I.split("++").join("")), L = F(), M = 0; D > M; M++) O = j.charAt(M), ")" === O && j.substr(M, 20) === l ? (L += E + "<BR/>", M !== D - 1 && (L += " " + F()), M += 19) : " " === O && " " !== j.charAt(M - 1) && M !== D - 1 ? (L += E, M !== D - 1 && (L += s + F())) : L += q && " " !== O ? G() + O + "</div>" : O;
+            for (a.innerHTML = L + E, N = a.getElementsByTagName("*"), D = N.length, P = [], M = 0; D > M; M++) P[M] = N[M];
+            if (n || r)
+                for (M = 0; D > M; M++) Q = P[M], K = Q.parentNode === a, (K || r || q && !o) && (R = Q.offsetTop, n && K && R !== t && "BR" !== Q.nodeName && (J = [], n.push(J), t = R), r && (Q._x = Q.offsetLeft, Q._y = R, Q._w = Q.offsetWidth, Q._h = Q.offsetHeight), n && (o !== K && q || (J.push(Q), Q._x -= v), K && M && (P[M - 1]._wordEnd = !0)));
+            for (M = 0; D > M; M++) Q = P[M], K = Q.parentNode === a, "BR" !== Q.nodeName ? (r && (T = Q.style, o || K || (Q._x += Q.parentNode._x, Q._y += Q.parentNode._y), T.left = Q._x + "px", T.top = Q._y + "px", T.position = "absolute", T.display = "block", T.width = Q._w + 1 + "px", T.height = Q._h + "px"), o ? K ? d.push(Q) : q && c.push(Q) : K ? (a.removeChild(Q), P.splice(M--, 1), D--) : !K && q && (R = !n && !r && Q.nextSibling, a.appendChild(Q), R || a.appendChild(f.createTextNode(" ")), c.push(Q))) : n || r ? (a.removeChild(Q), P.splice(M--, 1), D--) : o || a.appendChild(Q);
+            if (n) {
+                for (r && (S = f.createElement("div"), a.appendChild(S), U = S.offsetWidth + "px", R = S.offsetParent === a ? 0 : a.offsetLeft, a.removeChild(S)), T = a.style.cssText, a.style.cssText = "display:none;"; a.firstChild;) a.removeChild(a.firstChild);
+                for (V = !r || !o && !q, M = 0; M < n.length; M++) {
+                    for (J = n[M], S = f.createElement("div"), S.style.cssText = "display:block;text-align:" + A + ";position:" + (r ? "absolute;" : "relative;"), I && (S.className = I + (H ? M + 1 : "")), h.push(S), D = J.length, N = 0; D > N; N++) "BR" !== J[N].nodeName && (Q = J[N], S.appendChild(Q), V && (Q._wordEnd || o) && S.appendChild(f.createTextNode(" ")), r && (0 === N && (S.style.top = Q._y + "px", S.style.left = v + R + "px"), Q.style.top = "0px", R && (Q.style.left = Q._x - R + "px")));
+                    o || q || (S.innerHTML = e(S).split(String.fromCharCode(160)).join(" ")), r && (S.style.width = U, S.style.height = Q._h + "px"), a.appendChild(S)
+                }
+                a.style.cssText = T
+            }
+            r && (B > a.clientHeight && (a.style.height = B - y + "px", a.clientHeight < B && (a.style.height = B + w + "px")), C > a.clientWidth && (a.style.width = C - z + "px", a.clientWidth < C && (a.style.width = C + x + "px")))
+        },
+        v = t.prototype;
+    v.split = function (a) {
+        this.isSplit && this.revert(), this.vars = a || this.vars, this._originals.length = this.chars.length = this.words.length = this.lines.length = 0;
+        for (var b = 0; b < this.elements.length; b++) this._originals[b] = this.elements[b].innerHTML, u(this.elements[b], this.vars, this.chars, this.words, this.lines);
+        return this.isSplit = !0, this
+    }, v.revert = function () {
+        if (!this._originals) throw "revert() call wasn't scoped properly.";
+        for (var a = this._originals.length; --a > -1;) this.elements[a].innerHTML = this._originals[a];
+        return this.chars = [], this.words = [], this.lines = [], this.isSplit = !1, this
+    }, t.source = q, t.selector = a.$ || a.jQuery || function (b) {
+        return a.$ ? (t.selector = a.$, a.$(b)) : f ? f.getElementById("#" === b.charAt(0) ? b.substr(1) : b) : b
+    }
+}(window || {});
+
+        var resizeText = function (el, width, height, maxRows, originalFontSize, originalLineHeight, algorithm) {
+        algorithm = algorithm || parseInt(el.getAttribute('data-resize')) || 'row';
+        if (algorithm === "none" || !el || !el.innerHTML || el.innerHTML === "" || el.innerHTML.indexOf("<iframe") !== -1) return false;
+
+        width = width || parseInt(el.parentNode.style.width.replace('px', ""), 10);
+        height = height || parseInt(el.parentNode.style.height.replace('px', ""), 10);
+        maxRows = maxRows || parseInt(el.getAttribute('maxrows')) || parseInt(el.getAttribute('data-maxrows')) || 0;
+        originalFontSize = originalFontSize || parseInt(el.getAttribute('data-fontsize')) || parseInt(el.style.fontSize.replace('px', ""), 10) || 20;
+        originalLineHeight = originalLineHeight || parseInt(el.getAttribute('data-lineheight')) || parseInt(el.style.lineHeight.replace('px', ""), 10) || originalFontSize;
+        var paddingWidth = parseInt(el.style.paddingTop.replace('px', ""), 10) || 0;
+        var borderWidth = (parseInt(el.style.borderWidth.replace('px', ""), 10) || 0) + paddingWidth;
+        var originalWidth = width - borderWidth * 2;
+        var originalHeight = height - borderWidth * 2;
+        var lineHeightDiff = originalLineHeight / originalFontSize;
+        var transition = el.style.transition;
+        var displayChanged = false;
+        var transform = el.parentNode.style.transform;
+
+        var verticalAlign = el.style.verticalAlign || "middle";
+        
+            console.log("RESIZE", el, width, height, maxRows, originalFontSize, originalLineHeight, algorithm)
+            
+        var getHeight = function () { return el.offsetHeight - borderWidth * 2; };
+        var getWidth = function () { return el.offsetWidth - borderWidth * 2; };
+        var insertAfter = function (referenceNode, newNode) { referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling); };
+        var setRows = function (n) {
+            surroundWordsWithSpan(el);
+            var row = 0;
+            var currentPos = -100000;
+            var p;
+
+            var elements = el.getElementsByClassName('bf_single_word');
+            for (var elementIndex = 0; elementIndex < elements.length; elementIndex++) {
+                p = elements[elementIndex].offsetTop;
+                if (p > currentPos) {
+                    currentPos = p;
+                    row++;
+                }
+                elements[elementIndex].className += " bf_row" + row;
+            }
+            return row;
+        };
+
+        var removeBr = function () {
+            var br = el.getElementsByClassName('bf_br');
+            for (var i = br.length - 1; i >= 0; i--) {
+                br[i].parentNode.removeChild(br[i]);
+            }
+        };
+
+        var removeSpans = function () {
+            var b = el.getElementsByClassName('bf_single_word');
+            while (b.length) {
+                var parent = b[0].parentNode;
+                while (b[0].firstChild) {
+                    parent.insertBefore(b[0].firstChild, b[0]);
+                }
+                parent.removeChild(b[0]);
+            }
+        };
+
+        var surroundWordsWithSpan = function (root) {
+            var children;
+            if (root.nodeType == 3) // text node
+            {
+                var div = document.createElement("div");
+                div.style.pointerEvents = "none";
+                var lineHeight = algorithm != "all" ? "line-height:" + (parseInt(el.style.lineHeight.replace('px', ""), 10) || originalLineHeight) + 'px;' : "";
+                div.innerHTML = root.nodeValue.replace(/([^\s<>]+)(?![^<]*>|[^<>]*<\/)/g, '<span class="bf_single_word" style="pointer-events:none;' + lineHeight + '">$1</span>');
+                var parent = root.parentNode;
+                children = div.childNodes;
+                for (var ii = children.length - 1; ii >= 0; ii--) {
+                    parent.insertBefore(children[ii], root.nextSibling);
+                }
+                parent.removeChild(root);
+                return;
+            }
+            children = root.childNodes;
+            for (var iii = children.length - 1; iii >= 0; iii--) {
+                surroundWordsWithSpan(children[iii]);
+            }
+        };
+
+        //Save original line-height
+        if (!el.getAttribute('data-lineheight')) {
+            el.setAttribute('data-lineheight', originalLineHeight);
+        }
+        //Save original font-size
+        if (!el.getAttribute('data-fontsize')) {
+            el.setAttribute('data-fontsize', originalFontSize);
+        }
+        if (el.parentNode.style.display == "none") {
+            el.parentNode.style.display = "table";
+            displayChanged = true;
+        }
+        el.style.fontSize = originalFontSize + "px";
+        el.style.lineHeight = originalLineHeight + "px";
+        el.style.display = 'block';
+        el.style.height = 'auto';
+        el.style.lineHeight = originalLineHeight + "px";
+        el.style.width = originalWidth + 'px';
+        el.style.transition = "none";
+        el.parentNode.style.transform = "none";
+        //Clean up
+        removeBr();
+        removeSpans();
+
+        var rows = getHeight() / originalLineHeight;
+        //Fit text on certain amount of rows
+        while ((maxRows != 0 && rows > maxRows) || (getHeight() > originalHeight)) {
+            var size = parseInt(el.style.fontSize.replace('px', ""), 10) - 1;
+            el.style.fontSize = size + 'px';
+            el.style.lineHeight = Math.round((size * lineHeightDiff)) + 'px';
+            rows = getHeight() / (size * lineHeightDiff);
+            if (size < 2) { break; }
+        }
+        //Fit width of all rows within container
+        var rowCount = setRows();
+        for (var i = 1; i <= rowCount; i++) {
+            var row = el.getElementsByClassName('bf_row' + i);
+            var last = row[row.length - 1];
+            var first = row[0];
+            var size = parseInt(el.style.fontSize.replace('px', ""), 10) || originalFontSize;
+            var lh = originalLineHeight;
+            //var loop = 0;
+            var elSize = parseInt(el.style.fontSize.replace('px', ""), 10) || originalFontSize;
+            while (last.offsetLeft + last.offsetWidth - first.offsetLeft >= originalWidth) {
+                size--;
+                if (algorithm == "all") {
+                    el.style.fontSize = size + 'px';
+                    el.style.lineHeight = Math.round((size * lineHeightDiff)) + 'px';
+                }
+                else {
+                    lh = Math.round((size * lineHeightDiff) + Math.min(5, Math.max(0, 15 - size)));
+                    for (var j = 0; j < row.length; j++) {
+                        row[j].style.fontSize = size + 'px';
+                        row[j].style.lineHeight = lh + 'px';
+                    }
+                }
+                if (size < 2) { break; }
+            }
+            var br = document.createElement("br");
+            br.style.fontSize = '1px';
+            br.style.lineHeight = '1px';
+            br.style.pointerEvents = "none";
+            br.className = "bf_br";
+            insertAfter(last, br);
+        }
+        if (algorithm != "all") { el.style.lineHeight = "0px" };
+        el.parentNode.style.transform = transform;
+        el.style.display = 'table-cell';
+        el.style.height = '100%';
+        el.style.width = '100%';
+        if (displayChanged) { el.parentNode.style.display = "none"; }
+        bf_timeout = setTimeout(function (o) {
+            o.el.style.transition = o.transition;
+        }, 50, {
+            el: el,
+            transition: transition
+        });
+    }
+
+    
+    
+    
+</script>
+
+<link href='https://fonts.googleapis.com/css?family=Asap:400,700' rel='stylesheet' type='text/css'>
+
+
+<script>
+function run() {
+    var tl = new TimelineLite();
+    mySplitText = new SplitText("#quote", {type:"words,chars"});
+    var chars = mySplitText.chars;
+    
+    TweenLite.set("#quote", {perspective:400});
+
+    tl.staggerFrom(chars, 0.8, {opacity:0, scale:0, y: 40, x:80, rotationX:40, transformOrigin:"0% 50% -50",  ease:Back.easeOut}, 0.02, "+=0");
+
+
+    //document.getElementById("animate").onclick = function() {
+      //  console.log("klick");
+      //tl.restart();
+    //}
+}
+</script>

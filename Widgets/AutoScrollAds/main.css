@@ -1,0 +1,23 @@
+.container{
+  position : absolute;
+  top : 0;
+  left : 0;
+  width : 100%;
+  //border : 1px solid red;
+}
+.da {
+  //border : 1px solid red;
+  height : 600px;
+  background-color : #8cc;
+  margin : 10px 0;
+}
+.content {
+  //border : 1px solid red;
+  height : 800px;
+  background-color : #8c8;
+  margin : 10px 0;
+}
+
+.auto-scroll{
+  transition: transform 0.05s ;
+}

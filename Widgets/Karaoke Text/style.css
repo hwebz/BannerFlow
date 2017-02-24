@@ -1,0 +1,31 @@
+.container{
+  font-family: sans-serif;
+  font-size : 40px;
+  text-align : center;
+  padding : 20px 20px 20px 20px;
+}
+.word {	
+	display : inline-block;
+	margin : 5px;
+	box-sizing : border-box;
+	transition : all 0.1s ease-out;
+	margin-top: 15px;
+    color : #333;
+	//color : transparent;    
+}
+.hint{
+	color: #FF0066;
+	text-shadow: 0px 0px 2px #FF0066;
+}
+.ball{
+	width : 10px;
+	height : 10px;
+	border-radius : 50%;
+	background-color : #FF0066;
+	position : absolute;
+	top : 0;
+	left : 0;		
+	overflow : hidden;
+    background-size : cover ! important;
+    opacity : 0;
+}

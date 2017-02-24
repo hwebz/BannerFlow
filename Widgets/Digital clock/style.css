@@ -1,0 +1,90 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  box-sizing: border-box;
+}
+.container{
+  text-align: center;
+}
+.seperator {
+  display: inline-block;
+  margin: 10px;
+  vertical-align: top;
+}
+.seperator:before, .seperator:after {
+  content: '';
+  width: 5.6px;
+  height: 5.6px;
+  border: 11.2px solid;
+  display: block;
+  margin-top: 28px;
+  border-radius: 10px;
+}
+.digital {
+  display: inline-block;
+  margin: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-top-color: rgba(0, 0, 0, 0.05);
+  border-bottom-color: rgba(0, 0, 0, 0.05);
+}
+.digital:before, .digital:after {
+  content: '';
+  display: block;
+  border-width: 20px;
+  border-style: solid;
+  border-color: inherit;
+  width: 40px;
+  height: 40px;
+  transition: border-color 0.2s linear;
+}
+.digital:before {
+  border-bottom-width: 10px;
+}
+.digital:after {
+  border-top-width: 10px;
+}
+[class*='number']:before, [class*='number']:after, .seperator:before, .seperator:after {
+  border-color: #79b5d2;
+  border-top-color: #8cbfd9;
+  border-bottom-color: #8cbfd9;
+}
+.number-0:before {
+  border-bottom-color: inherit!important;
+}
+.number-1:before, .number-1:after, .number-7:after {
+  border-left-color: inherit!important;
+  border-top-color: inherit!important;
+  border-bottom-color: inherit!important;
+}
+.number-2:before, .number-3:before {
+  border-left-color: inherit!important;
+}
+.number-2:after, .number-5:before, .number-6:before {
+  border-right-color: inherit!important;
+}
+.number-3:after, .number-5:after, .number-9:after {
+  border-left-color: inherit!important;
+}
+.number-4:before, .number-0:after {
+  border-top-color: inherit!important;
+}
+.number-4:after, .number-7:before {
+  border-left-color: inherit!important;
+  border-bottom-color: inherit!important;
+}
+.period:before{
+  margin: 10px;
+  vertical-align: top;
+  font-size: 30px;
+  font-family: 'sans-serif', 'Arial';
+  display: inline-block;
+}
+.period.am:before{
+  content: 'AM';  
+}
+.period.pm:before{
+  content: 'PM';  
+}

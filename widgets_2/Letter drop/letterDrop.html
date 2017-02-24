@@ -1,0 +1,183 @@
+<!--
+http://codepen.io/KryptoniteDove/pen/gipuw
+
+STYLES SOM ANVÄNDS:
+1. Text color
+2. Text size
+3. Thickness
+4. Italic
+
+ÖVRIGA KOMMENTARER:
+1. letterColor
+    -. Varannan färg är i en annan ton.
+-->
+
+<h1 id="drop">letter drop</h1>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<script>
+    var drop = "",
+        letterColor = "#FFF",
+        textDrop = document.getElementById("drop"),
+        head = document.head || document.getElementById('drop'),
+        style = document.createElement('style');
+
+    style.type = 'text/css';
+    head.appendChild(style);
+
+    BannerFlow.addEventListener(BannerFlow.INIT, function () {
+        if(BannerFlow.editorMode)
+            $( 'h1' ).letterDrop();
+    });
+   
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+        document.getElementById("drop").innerHTML = BannerFlow.text;
+        drop = BannerFlow.getText();
+        var textLength = drop.length;
+
+        if(textLength == 0 || textLength == null || textLength == 'undefined') {
+            BannerFlow.setText("BannerFlow");
+        }        
+            $( 'h1' ).letterDrop();
+    });
+
+    BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () { 
+        textDrop.style.fontSize = BannerFlow.getStyle("font-size");
+        textDrop.style.fontWeight = BannerFlow.getStyle("font-weight");
+        textDrop.style.fontStyle = BannerFlow.getStyle("font-style");
+
+        var rgb = BannerFlow.getStyle("color").split('(')[1].split(')')[0].split(',');
+        letterColor = rgbToHex(Number(rgb[0]), Number(rgb[1]), Number(rgb[2]));
+        var diff1 = colorLuminance(letterColor, -0.1);
+
+        var css = 'h1 {color: ' + letterColor + ';} span:nth-child(2n){color:' + diff1 + ';}';
+        if (style.styleSheet){
+            style.styleSheet.cssText = css;
+        } else {
+            while (style.firstChild) {
+                style.removeChild(style.firstChild);
+            }
+            style.appendChild(document.createTextNode(css));
+        }
+        if(BannerFlow.editorMode)
+            $( 'h1' ).letterDrop();       
+    });
+
+    function colorLuminance(hex, lum) {
+        hex = String(hex).replace(/[^0-9a-f]/gi, '');
+        if (hex.length < 6) {
+            hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        }
+        lum = lum || 0;
+        var rgb = "#", c, i;
+        
+        for (i = 0; i < 3; i++) {
+            c = parseInt(hex.substr(i * 2, 2), 16);
+            c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+            rgb += ("00" + c).substr(c.length);
+        }
+        return rgb;
+    }
+
+    function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
+
+    function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    ;(function($) {
+        $.fn.letterDrop = function() {
+            // Chainability
+            return this.each( function() { 
+                var obj = $( this );
+
+                drop = {
+                    arr : obj.text().split( '' ),
+
+                    range : {
+                        min : 1,
+                        max : 9
+                    },
+
+                    styles : function() {
+                        var dropDelays = '\n', addCSS;
+
+                        for ( i = this.range.min; i <= this.range.max; i++ ) {
+                            dropDelays += '.ld' + i + ' { animation-delay: 1.' + i + 's; }\n';  
+                        }
+                        addCSS = $( '<style>' + dropDelays + '</style>' );
+                        $( 'head' ).append( addCSS );
+                    },
+
+                    main : function() {
+                        var dp = 0;
+                        obj.text( '' );
+
+                        $.each( this.arr, function( index, value ) {
+                            dp = dp.randomInt( drop.range.min, drop.range.max );
+
+                            if ( value === ' ' )
+                                value = '&nbsp';
+                            obj.append( '<span class="letterDrop ld' + dp + '">' + value + '</span>' );
+                        });
+                    }
+                };
+                Number.prototype.randomInt = function ( min, max ) {
+                    return Math.floor( Math.random() * ( max - min + 1 ) + min );
+                };
+                drop.styles();
+                drop.main();
+            });
+
+        };
+
+    }(jQuery));
+       
+</script>
+
+<style>
+    .h1 {
+        font-family: Arial;
+        font-weight: 400;
+        font-size: 38px;
+        color: #9A12B3;
+    }
+    .letterDrop {
+        position: relative;
+        top: 9px;  
+        display: inline-block;
+        text-transform: uppercase; 
+        letter-spacing: 8px;
+        opacity: 0.8;
+        transform: rotateX(-90deg);
+        animation-name: letterDrop;
+        animation-duration: 1.2s;
+        animation-timing-function: ease;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+    @-webkit-keyframes letterDrop {
+        10% {opacity: 0.5;}
+        20% {opacity: 0.8; top: 60px; transform: rotateX(-360deg);}
+        100% {opacity: 1; top: 72px; transform: rotateX(360deg);}
+    }
+    @-moz-keyframes letterDrop {
+        10% {opacity: 0.5;}
+        20% {opacity: 0.8; top: 60px; transform: rotateX(-360deg);}
+        100% {opacity: 1; top: 72px; transform: rotateX(360deg);}
+    }
+    @-o-keyframes letterDrop {
+        10% {opacity: 0.5;}
+        20% {opacity: 0.8; top: 60px; transform: rotateX(-360deg);}
+        100% {opacity: 1; top: 72px; transform: rotateX(360deg);}
+    }
+    @keyframes letterDrop {
+        10% {opacity: 0.5;}
+        20% {opacity: 0.8; top: 60px; transform: rotateX(-360deg);}
+        100% {opacity: 1; top: 72px; transform: rotateX(360deg);}
+    }
+</style>

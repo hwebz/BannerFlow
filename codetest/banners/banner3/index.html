@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>
+			Banner Animation
+		</title>
+
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			.wrapper{
+				margin: 0 auto;
+				padding: 20px 0;
+				width: 1200px;
+			}
+			.result-container{
+				margin: 0 0 20px;
+			}
+			h1{
+				text-align: center;
+			}
+			iframe{
+				margin: 0 auto;
+				display: block;
+				border: 0;
+			}
+			.controller-panel {
+				border: 1px solid #acacac;
+				padding: 30px;
+			}
+			input{
+				width: 200px;
+				height: 20px;
+				padding: 3px;
+				margin: 0 15px 0 0;
+			}
+			select {
+				width: 300px;
+				margin: 0 15px 0 0;
+				height: 30px;
+			}
+			.button-container{
+				padding: 20px 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="result-container">
+				<h1>Animation example by Canvas</h1>
+				<iframe id="iframe" src="./animation.html" width="570" height="150"></iframe>
+			</div>
+			<div class="controller-panel">
+				<h2>Animation Parameters</h2>
+				<div>
+					<input id="text" name="text" placeholder="text for animation" value="WE ARE NITECAN">
+					<input id="animationLinewidth" name="text" placeholder="Line for animation" value="5">
+					<input id="animationLeft" name="text" placeholder="Left for animation" value="0">
+					<input id="animationColor" name="text" placeholder="Color for animation" value="facd20">
+					<input id="animationBg" name="text" placeholder="Background for animation" value="000000">
+					<input id="animationSpeed" name="text" placeholder="Speed for animation" value="5">
+					
+					<select id="animationFont">
+						<option value="50px Comic Sans MS, cursive, TSCu_Comic, sans-serif">Comic Sans MS, cursive, TSCu_Comic, sans-serif</option>
+						<option value="50px Tahoma">Tahoma</option>
+					</select>
+				</div>
+				<h2>iframe Parameters</h2>
+				<div>
+					<input id="iframe_width" name="text" placeholder="width of iframe" value="570">
+					<input id="iframe_height" name="text" placeholder="height of iframe" value="150">
+				</div>
+				<div class="button-container">
+					<button id="reloadBtn">Reload</button>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="./jquery-2.2.2.min.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var iframe = $('#iframe');
+				var src = "./animation.html";
+
+				$('#reloadBtn').on('click', function() {
+					var text = $('#text').val();
+					var speed = $('#animationSpeed').val();
+					var linewidth = $('#animationLinewidth').val();
+					var color = $('#animationColor').val();
+					var bg = $('#animationBg').val();
+					var font = $('#animationFont').val();
+
+					var width = $('#iframe_width').val();
+					var height = $('#iframe_height').val();
+
+					if(width && !isNaN(width) && height && !isNaN(height)){
+						width = parseInt(width);
+						height = parseInt(height);
+
+						if(width > 0 && height > 0){
+							iframe.attr('width', width);
+							iframe.attr('height', height);
+						}
+					}
+
+					if(text && text.trim().length > 0){
+						text = text.trim();
+						var url = src+"?text="+text;
+
+						if(speed){
+							url +="&speed="+speed;
+						}
+						if(linewidth){
+							url +="&linewidth="+linewidth;
+						}
+						if(color){
+							url +="&color="+color;
+						}
+						if(bg){
+							url +="&bg="+bg;
+						}
+						if(font){
+							url +="&font="+font;
+						}
+						if(width){
+							url +="&width="+width;
+						}
+						if(height){
+							url +="&height="+height;
+						}
+
+						iframe.attr('src',url);
+					}
+				});
+			});
+		</script>
+	
+
+
+</body></html>

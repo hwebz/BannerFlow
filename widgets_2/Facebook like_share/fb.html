@@ -1,0 +1,58 @@
+<!--
+https://developers.facebook.com/docs/plugins/like-button
+
+1. data-href
+    -. Sätts mha textrutan som kommer upp vid dubbelklick på widget
+2. data-width (px)
+    -. Sätts i html
+3. data-layout
+    -. Bör sättas med dropdown med följade alternativ
+        a. 'standard'
+        b. 'box_count'
+        c. 'button_count'
+        d. 'button'
+4. data-show-faces
+    -. true/false (visar vänners profilbilder)
+5. data-share
+    -. true/false (om 'dela' knappen ska visas eller inte)
+
+ÖVRIGA KOMMENTARER:
+1. var 'language'
+    -. Ställer in språk för 'like/share' knappen.
+    -. Byt t.ex. "sv_SE" -> "en_US" för engelska.
+    -. Här finns koder för alla språk som stöds.
+        a. https://www.facebook.com/translations/FacebookLocales.xml
+-->
+
+<div id="fb-root"></div>
+<div class="fb-like" 
+     data-href="https://bannerflow.com" 
+     data-width="200" 
+     data-layout="standard" 
+     data-action="like" 
+     data-show-faces="true" 
+     data-share="true">
+</div>
+
+<script>
+    var like = document.getElementsByClassName('fb-like')[0];
+    var language = "sv_SE";
+    
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;        
+        js.src = "//connect.facebook.net/" + language + "/sdk.js#xfbml=1&version=v2.3";        
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+        var text = BannerFlow.getText();
+        like.setAttribute('data-href', text);
+        var textLength = text.length;
+        
+        if(textLength == 0 || textLength == null || textLength == 'undefined')
+            BannerFlow.setText(BannerFlow.defaultTargetUrl);
+    });     
+
+</script>

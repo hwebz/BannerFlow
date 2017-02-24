@@ -1,0 +1,51 @@
+*{
+  box-sizing : border-box;
+  padding : 0;
+  margin : 0;  
+}
+body {
+  overflow-x : hidden;
+}
+.container {  
+  position: absolute;
+  height : 100%;
+  display: inline-block;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.5s linear 0.5s;
+  padding-top: calc(50vh - 20px);
+  font-size: 40px;
+}
+.container span {
+  display: inline-block;
+  padding-right: 10px;
+}
+.container .space{
+  width: 40px;
+}
+.up{
+  color : hsl(100,50%,50%);
+}
+.down{
+  color : hsl(0,50%,50%);  
+}
+.down .arrow{
+  transform: rotate(180deg);
+}
+.arrow{  
+  border-left : 3px solid;
+  position: relative;
+  padding: 0!important;  
+  margin: 0 5px;
+  display: inline-block;
+}
+.arrow:before{
+  content: '';
+  position: absolute;
+  left: -8px;
+  height: 10px;
+  width: 10px;
+  border-top: 3px solid ;
+  border-left: 3px solid ;
+  transform: rotate(45deg);
+}

@@ -1,0 +1,36 @@
+
+
+*,*:before,*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  
+  padding: 0;
+  margin: 0;
+}
+.widget-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.text-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  overflow: hidden;
+}
+.text-content {
+  position: absolute;
+  display: inline-block;
+}
+.text-content.current-text {
+  top: 0px;
+  left: 0px;
+}

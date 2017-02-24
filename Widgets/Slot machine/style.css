@@ -1,0 +1,489 @@
+*{
+  padding : 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.machine{
+  display: inline-block;
+  position: relative;
+  opacity: 0;
+}
+.container{
+  width : 1200px;
+  height : 400px;
+  border-style : solid;
+  border-color : hsl(0,10%,50%) hsl(0,20%,50%);
+  border-width : 15px;
+  display : flex;
+  background: linear-gradient(to bottom, #696992 0%, #afb0b7 20%, #e9e9e9 35%, #8f9e90 69%, #e7e7e7 100%);
+  position: relative;
+  overflow: hidden;
+  float: left;
+  background-clip: content-box;
+  margin: 0 -1px;
+  box-shadow: inset 0px 3px 10px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.5);
+}
+.container:before{
+  content: '';
+  position: absolute;
+  width: calc(100% - 40px);
+  top : calc(50% - 20px);
+  left: 0;
+  border-style: solid;
+  border-width: 20px;
+  border-color: transparent hsla(0,70%,100%,1);
+  height: 2px;
+  background: linear-gradient(#fff 50%,#999 50%);
+  overflow: hidden;
+  z-index: 4;
+  background-clip: content-box;
+}
+.container:after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 180px;
+  top : calc(50% - 90px);
+  background: linear-gradient(to right, rgba(255,255,255,0.5) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0.5) 100%);
+  opacity: 0.5;
+}
+.col{
+  width: 100%;
+}
+.col:first-child .row{
+  border-left: none;
+}
+.col:last-child .row{
+  border-right : none;
+}
+.row{
+  border-style: solid;
+  border-color : transparent #fff transparent #888;
+  border-width: 0 1px ;
+}
+.row:after{
+  content: '';
+  display: block;
+  padding-top: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.seven:after      {background-image : url("./seven.svg");}
+.lemon:after      {background-image : url("./lemon.svg");}
+.cherry:after     {background-image : url("./cherry.svg");}
+.watermelon:after {background-image : url("./waterMelon.svg");}
+.banana:after     {background-image : url("./banana.svg");}
+.bar:after        {background-image : url("./bar.svg");}
+.prune:after      {background-image : url("./prune.svg");}
+.bigwin:after     {background-image : url("./bigwin.svg");}
+.orange:after     {background-image : url("./orange.svg");}
+.seven:after      {background-image : url(//bannerflow.blob.core.windows.net/resources/seven-6803e6a7-66bb-475d-b201-e2551ac41f77.svg?v=636058905940602803);}
+.lemon:after      {background-image : url(//bannerflow.blob.core.windows.net/resources/lemon-427191a8-0a28-43fb-8bf9-6a68df0d8d0d.svg?v=636058905940602803);}
+.cherry:after     {background-image : url(//bannerflow.blob.core.windows.net/resources/cherry-73d79a68-bece-46b2-9f93-fcc4617b6dbc.svg?v=636058905940602803);}
+.watermelon:after {background-image : url(//bannerflow.blob.core.windows.net/resources/watermelon-53668bfb-8cd0-4107-b9be-b2379984b9fb.svg?v=636058905940602803);}
+.banana:after     {background-image:  url(//bannerflow.blob.core.windows.net/resources/banana-a70ac7d5-feda-4c4a-80bc-1fefc5cf1f9f.svg?v=636058905940602803);}
+.bar:after        {background-image : url(//bannerflow.blob.core.windows.net/resources/bar-69414337-7bd5-4fa0-9dfd-3f73eb313a4d.svg?v=636058905940602803);}
+.prune:after      {background-image : url(//bannerflow.blob.core.windows.net/resources/prune-eb66576f-c6ba-4c4a-88c6-b659ce01f771.svg?v=636058905940602803);}
+.bigwin:after     {background-image : url(//bannerflow.blob.core.windows.net/resources/bigwin-ea7b5813-de4b-40c6-b708-e992f57be3e0.svg?v=636058905940602803);}
+.orange:after     {background-image : url(//bannerflow.blob.core.windows.net/resources/orange-625c9be2-9b9e-45aa-b574-808930b71c41.svg?v=636058905940602803);}
+/*-------------=== winner style ===-------------*/
+.winner{
+  background-color: transparent;
+  -webkit-transition: transform 0.1s linear,background-color 0.1s ease;
+  -moz-transition: transform 0.1s linear,background-color 0.1s ease;
+  -o-transition: transform 0.1s linear,background-color 0.1s ease;
+  transition: transform 0.1s linear,background-color 0.1s ease;
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
+  pointer-events: none;
+}
+.winner.active{
+  -webkit-transition: transform 0.1s linear,background-color 0.5s ease;
+  -moz-transition: transform 0.1s linear,background-color 0.5s ease;
+  -o-transition: transform 0.1s linear,background-color 0.5s ease;
+  transition: transform 0.1s linear,background-color 0.5s ease;
+  background-color: rgba(0,0,0,0.5);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+}
+.winner,.winner:before,.winner:after{
+  position: absolute;
+  top: 0;
+  left :0;
+  width: 100%;
+  height: 100%;
+  content: '';
+  display: block;
+  z-index: 3;
+}
+/*.winner:before{
+  background : url(//bannerflow.blob.core.windows.net/resources/winner2-d4e9ae90-43f8-4575-99b9-fc675462bc35.svg?v=636058905940602803) no-repeat center;
+  background-size: cover;
+  -webkit-animation: rotateBackground 12s linear infinite;
+  -moz-animation:    rotateBackground 12s linear infinite;
+  -o-animation:      rotateBackground 12s linear infinite;
+  animation:         rotateBackground 12s linear infinite;
+}*/
+.winner:after{  
+  background : url(//bannerflow.blob.core.windows.net/resources/winner1-e3971196-c01b-4985-8303-3a1829f2d529.svg?v=636058905940602803) no-repeat center;
+  background-size: contain;
+  -webkit-animation: scaleForeground 2s linear infinite;
+  -moz-animation:    scaleForeground 2s linear infinite;
+  -o-animation:      scaleForeground 2s linear infinite;
+  animation:         scaleForeground 2s linear infinite;
+}
+.sunburst,.galaxy{  
+  position : absolute;
+  top : 0;
+  left : 0;
+  width: 100%;
+  height: 100%;    
+  border-color: #F0CB3A;
+}
+.sunburst{
+  opacity : 0.5;
+  -webkit-animation: rotateBackground 32s linear infinite;
+  -moz-animation:    rotateBackground 32s linear infinite;
+  -o-animation:      rotateBackground 32s linear infinite;
+  animation:         rotateBackground 32s linear infinite;  
+}
+.galaxy{
+  opacity : 0;
+  -webkit-animation: rotateBackground 8s linear infinite;
+  -moz-animation:    rotateBackground 8s linear infinite;
+  -o-animation:      rotateBackground 8s linear infinite;
+  animation:         rotateBackground 8s linear infinite; 
+}
+.sunburst b,.sunburst b:before,.sunburst b:after {
+  content : '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-width: 65.54px 1000px;
+  border-color: inherit;
+  border-top-color : transparent !important;
+  border-bottom-color : transparent !important;
+  border-style: solid;
+  position : absolute;
+  top : calc(50% - 65.54px);
+  left : calc(50% - 1000px);  
+}
+.sunburst b:before{  
+  transform: rotate( 60deg);
+}
+.sunburst b:after{  
+  transform: rotate( -60deg);
+}
+.sunburst b:nth-child(1) {
+  transform: rotate( 15deg);
+}
+.sunburst b:nth-child(2) {
+  transform: rotate( 30deg);
+}
+.sunburst b:nth-child(3) {
+  transform: rotate( 45deg);
+}
+.galaxy b, .galaxy b:before, .galaxy b:after {
+  content: '';
+  display: block;
+  border-style: solid;
+  border-color: inherit;
+  border-top-color: transparent!important;
+  border-left-color: transparent!important;
+  border-right-color: transparent!important;  
+  position: absolute;
+}
+.galaxy b {
+  border-width: 95.10565px 130.9017px;  
+}
+.galaxy b:before {
+  border-width: 95.10565px 30.9017px;
+  transform: rotate(-36deg) translate(0px, -189px);
+}
+.galaxy b:after {
+  border-width: 95.10565px 130.9017px;
+  transform: rotate(-72deg) translate(0px, -189px);
+}
+.galaxy b:nth-child(1) {
+  left : 20%; 
+  top : 20%;
+  transform : scale(0.2);  
+}
+.galaxy b:nth-child(2) {
+  left : 18%; 
+  top : 77%;  
+  transform : scale(0.3);  
+}
+.galaxy b:nth-child(3) {
+  left : 85%; 
+  top : 70%;  
+  transform : scale(0.2);  
+}
+.galaxy b:nth-child(4) {
+  left : 70%; 
+  top : 26%;  
+  transform : scale(0.3);  
+} 
+.galaxy b:nth-child(5) {
+  left : 40%; 
+  top : 76%;
+  transform : scale(0.2);  
+}
+.galaxy b:nth-child(6) {
+  left : 66%; 
+  top : 12%;
+  transform : scale(0.3);  
+}
+@-webkit-keyframes rotateBackground {
+  100% { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes rotateBackground {
+  100% { -moz-transform: rotate(360deg); }
+}
+@-o-keyframes rotateBackground {
+  100% { -o-transform: rotate(360deg); }
+}
+@keyframes rotateBackground {
+  100% { transform: rotate(360deg); }
+}
+@-webkit-keyframes scaleForeground {
+  50% { -webkit-transform: scale(0.5); }
+}
+@-moz-keyframes scaleForeground {
+  50% { -moz-transform: scale(0.5); }
+}
+@-o-keyframes scaleForeground {
+  50% { -o-transform: scale(0.5); }
+}
+@keyframes scaleForeground {
+  50% { transform: scale(0.5); }
+}
+/*-----------------------------------------------*/
+.handle{
+  position: relative;
+  float: left;
+  vertical-align: top;
+  height : 60px;
+  margin-top : 70px;
+  margin-left : 1px;
+  width : 15px;
+  border-radius: 0 5px 5px 0/20px;
+  border : 1px solid rgba(189, 160, 112, 0.5);
+  background : linear-gradient(to bottom, #CD9819 0%,#f5f5f5 20%,#e2ba78 67%, #b6783d 90%, #CD9819 100%);
+}
+.handle,.handle:before,.handle:after{  
+  cursor: pointer;
+}
+.handle{
+  transition: background 0.2s linear;      
+}
+.handle:before,.handle:after{
+  transition: all 0.2s linear;  
+}
+.handle:before,.handle:after{
+  content: '';
+  display: block;
+  position: absolute;
+}
+.handle:before{
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(163,126,67,0.1);
+  background: linear-gradient(to right, #f5d6b1 0%, #cc9310 20%,#f1e767 60%,#f5f5f5 90%,#f1e767 100%);
+  width: 8px;
+  height: 80px;
+  bottom: 30px;
+  right: -10px;
+  border-bottom-right-radius: 10px 8px;
+}
+.handle:after{
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  top: -64px;
+  right: -17px;
+  border: 1px solid rgba(204,147,16,0.3);
+  background: radial-gradient(ellipse at 75% 25%, #ffffff 0%,#f1e767 25%,#cc9310 60%,#feb645 91%);
+}
+.handle.active{
+  background-position:0 47px;
+}
+.handle.active:before{
+  height: 0px;
+  border-bottom-right-radius: 2px;
+  transform: translateY(5px);
+}
+.handle.active:after{
+  transform: translateY(85px);
+}
+/*-----------------------------------------------*/
+.clear{
+  clear:both;
+}
+.footer{
+  text-align: right;
+  margin-right : 13px;
+  box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.3);
+  overflow: hidden;
+  border-radius: 0 0 10px 10px;
+  background-color: #fff;
+}
+.spin{
+  background-color: hsl(30, 70%, 70%);
+  padding: 10px 20px;
+  font: bold normal 24px/32px Arial, Helvetica, sans-serif;
+  display: inline-block;
+  border-radius: 0 0 10px 10px;
+  color : #fff;
+  transition: all 0.1s linear;
+  cursor: pointer;
+  transform: translateZ(2px);
+}
+.spin:hover,.spin.active{
+  background-color: hsl(30, 70%, 50%);  
+}
+/*-----------------------------------------------*/
+.theme1{
+  background-image: linear-gradient(#f6f4f6, #e1dee0 2.1%, #e1dee0 4.3%, #b3b0b2 8.7%, #9a9799 14.2%, #a6a3a5 25.2%, #a9a3a6 27.4%, #c9c6c8 38.4%, #f4f1f3 43.9%, #e2dfe1 53.8%, #c2bfc1 58.2%, #b1abae 73.6%, #949193 85.7%, #a7a4a6 90.1%, #b2afb1 90.1%, #dad7d9 96.7%, #dad7d9 97.8%, #fffdff 97.8%, #eeecee 98.9%);
+}
+.theme2{
+  background-image: linear-gradient(#c9bbbf, #916f74 2.2%, #936d73 3.4%, #86666a 5.6%, #6b4d53 7.9%, #59373e 13.6%, #56363c 17%, #5a363b 19.3%, #5f393f 25%, #6b3f47 34%, #7a5055 39.7%, #84555c 40.9%, #a16870 44.3%, #b4787f 44.3%, #c3838b 45.4%, #c3828d 48.8%, #bc8087 50%, #a46e75 53.4%, #9d6b71 54.5%, #87555d 57.9%, #77474a 60.2%, #6b3f45 64.7%, #673d40 75%, #623d3e 76.1%, #5d393a 80.6%, #533337 88.6%, #58383e 90.9%, #5d3f45, #5d3f45 93.1%, #65474e 93.1%, #684e53 94.3%, #7a5e63 97.7%, #7c5a5f 98.8%);
+}
+.theme3{
+  background-image: linear-gradient(#c69194, #a75b5f 2.2%, #812f35 8%, #75222b 13.7%, #76242a 16%, #7e262d 21.8%, #83262f 22.9%, #81272f 24.1%, #83262f 25.2%, #852c2f, #882c2e 29.8%, #8a2f2f 31%, #912f37 34.4%, #a94850 43.6%, #b4535b 43.6%, #de7781 48.2%, #e07985 50.5%, #d8717e 51.7%, #c6636e 54%, #b25159 57.4%, #a8464e 58.6%, #963438 62%, #8b2f33 68.9%, #8b2d32 71.2%, #8b2f33 72.4%, #892d31 74.7%, #892e2e 75.8%, #882c2e 77%, #7e2b2e 80.4%, #742227 88.5%, #7e2e36 94.2%, #89363f 94.2%, #8d4145 95.4%, #96484d 97.7%, #9e5158 98.8%)
+}
+.theme4{
+  background-image: linear-gradient(#9e7433, #a67b3d 2.3%, #8a5f24 5.8%, #724513 10.4%, #713f11 15.1%, #753d11 16.2%, #723f11 17.4%, #744111 19.7%, #753f10 20.9%, #7b4615 27.9%, #8f551f 38.3%, #9f612b 40.6%, #9f612b 41.8%, #a86a30 41.8%, #c28548 44.1%, #ca8d50 47.6%, #c4874a 50%, #be8046 51.1%, #a46c34 55.8%, #975d26, #8b4c18 60.4%, #834a14 65.1%, #854b15 66.2%, #854914 67.4%, #7d4b15 76.7%, #703e10 88.3%, #82561e 94.1%, #896023 95.3%, #986e33)
+}
+.theme5{
+  background-image: linear-gradient(#afa056 2.3%, #a4954b 2.3%, #83722d 6.9%, #816d29, #7d6c27 9.3%, #857024 18.6%, #8d7428 20.9%, #907626 23.2%, #927b26 25.5%, #a18630 33.7%, #a78831 34.8%, #a98a31, #a88d35 37.2%, #ab9036 39.5%, #b4953b 39.5%, #d2b153 43%, #dfbb5c 44.1%, #f3d56c 46.5%, #fcde73 47.6%, #f8db77 50%, #d0b056 55.8%, #b49438 59.3%, #a1892d 63.9%, #9d8430 66.2%, #97812c 74.4%, #93822b 75.5%, #8d7b2c 79%, #8c7529 80.2%, #867326 81.3%, #7d6c23 84.8%, #7e6a22, #7e6a24 87.2%, #7c6d25 88.3%, #80702b 91.8%, #988843 95.3%, #a99954 98.8%)
+}
+.theme6{
+  background-image: linear-gradient(#ac9b66, #ac9e69 2.2%, #a29361 2.2%, #8f8052 4.5%, #857248 5.7%, #736036 8%, #6e582d 12.6%, #6d592b 13.7%, #725a2b 14.9%, #725d2d 16%, #765f2c 18.3%, #756129 19.5%, #806831 24.1%, #816c2c 25.2%, #89702f 28.7%, #897330 29.8%, #957636 33.3%, #a98b44 41.3%, #b49349 41.3%, #debc63 44.8%, #f7da76, #fae07a 49.4%, #c7a658 56.3%, #a3863b 59.7%, #9b8236, #937933, #907736 66.6%, #8e7833 67.8%, #8e7835 71.2%, #887331 75.8%, #847432 77%, #7c6a33 79.3%, #75642f 82.7%, #6c582a 86.2%, #6b5d28 88.5%, #6d5c2a 89.6%, #6d5e2e 90.8%, #756238 91.9%, #87744b 94.2%, #8d7850 95.4%, #9e8f5f 98.8%)
+}
+.theme7{
+  background-image: linear-gradient(#c2d5b1, #769f52 2.2%, #5f9246 4.5%, #417228 9.1%, #3a6b23 11.4%, #436e26 20.6%, #456d26 21.8%, #4d742a 26.4%, #4f742b 28.7%, #51772b, #587931 33.3%, #648138 39%, #68873d 40.2%, #6f8c43 41.3%, #788f48 42.5%, #788f48 43.6%, #899a53 43.6%, #9ba35f 44.8%, #bdae70, #d5be83 49.4%, #d3bd82 50.5%, #a3a865 55.1%, #97a05e 56.3%, #8b9c57 57.4%, #728940 59.7%, #5f7e32 63.2%, #5c7b31 65.5%, #557b2d 66.6%, #587a2d 67.8%, #557b2f 70.1%, #4a7326 79.3%, #3b6a21 88.5%, #3b6a21 90.8%, #598c41 96.5%, #65964c)
+}
+.theme8{
+  background-image: linear-gradient(#899ec6, #4e6ba8 2.2%, #3e5ea0 3.4%, #345798 4.5%, #28458f, #1e3983 9.1%, #1f347c 18.3%, #1d357c 19.5%, #263982 25.2%, #273b81 26.4%, #2b3c83 28.7%, #2a3e84 29.8%, #2f3e86 33.3%, #32438a, #37468e, #3d4e95 40.2%, #46519a 41.3%, #6062a4 44.8%, #6f6dad 44.8%, #ae8bc4 48.2%, #b98fc8 49.4%, #b88bc3 50.5%, #a186c0 51.7%, #8f80bc 52.8%, #7672b5 55.1%, #666dad 56.3%, #5b63a7 57.4%, #51569e 58.6%, #3b498f, #35448c 63.2%, #30448a 64.3%, #2f4087 65.5%, #2d4187 71.2%, #2d3e85 73.5%, #223a7f 80.4%, #1a3277 90.8%, #204084 94.2%, #274b90 94.2%, #355599 96.5%, #4161a3)
+}
+.theme9{
+  background-image: linear-gradient(#7a7084, #635670 2.2%, #3d324c 8%, #342943 13.7%, #382846 18.3%, #3b2d4b 24.1%, #3e2d4e 25.2%, #443259 34.4%, #4b3960 37.9%, #4e3d61 39%, #5d4b76 43.6%, #695581 43.6%, #7b6396 45.9%, #8368a2 47.1%, #876ca8 48.2%, #846aa0 50.5%, #5d4973 57.4%, #49355f 60.9%, #443357 67.8%, #433054 74.7%, #41314f 77%, #392945 83.9%, #342742 87.3%, #382843, #3b2e48 91.9%, #4b4258 95.4%, #524761 98.8%, #5c4f69 98.8%)
+}
+.theme10{
+  background-image: linear-gradient(#555d61, #61696d 2.2%, #d8d9dc 16%, #eae8ea 18.3%, #f7f5f7 24.1%, #cbcccf 33.3%, #a7aaac 36.7%, #909296 39%, #82878a 40.2%, #5a5f64 44.8%, #4e565a 47.1%, #4a5055 48.2%, #495155 50.5%, #5e6066 55.1%, #7a7f82 58.6%, #8a8c90 59.7%, #d7d8db 67.8%, #e3e1e5 68.9%, #f7f5f7 75.8%, #e7e5e7 81.6%, #adafb3 88.5%, #a1a6a9 89.6%, #989a9e 90.8%, #656b70 96.5%, #5b6166);
+}
+.theme11{
+  background-image: linear-gradient(#889298 2.2%, #949ea4 2.2%, #b4b6bc 5.7%, #e2e3e6 11.4%, #eae8ec 12.6%, #fffdff 22.9%, #f1eff3 33.3%, #e1e2e5 35.6%, #dcdade 36.7%, #d0d2d6 37.9%, #d0d2d6 39%, #c5c7cb 39%, #a2a7aa 42.5%, #9599a1 43.6%, #70787e 49.4%, #727c82 51.7%, #dddee1 63.2%, #edebef 65.5%, #f9f7f9 82.7%, #ebecef 86.2%, #e8e6ea 87.3%, #d4d9dc 89.6%, #a4aab1 95.4%, #889298 98.8%)
+}
+.theme12{
+  background-image: linear-gradient(#5f5e5d 2.2%, #6a6767 2.2%, #787573 4.5%, #a69b9a 9.1%, #bbb3af 11.4%, #eedcd7 17.2%, #ffede6 20.6%, #fff3ea 21.8%, #fef3e9 26.4%, #ffede6 27.5%, #ecdad3 31%, #bcb2ac 35.6%, #a79c9b, #898280, #766f6e 42.5%, #5f5e5d 44.8%, #5a5757 45.9%, #545352 47.1%, #4e4c4e 50.5%, #6e6967 56.3%, #837c7b 58.6%, #8d8986 59.7%, #b4aaa4 63.2%, #d2c1be 65.5%, #eeded8 68.9%, #fbe9e2 71.2%, #fdefe6 72.4%, #fff4ea 75.8%, #fee8e2 79.3%, #fbe5df 80.4%, #f3e3da 81.6%, #cbbfba 86.2%, #c0b6ae 87.3%, #aca1a1 89.6%, #a19997 90.8%, #998e8d 91.9%, #8c8584 93.1%, #787170 95.4%, #6b6a67 96.5%, #676462 97.7%, #61605f)
+}
+.theme13{
+  background-image: linear-gradient(#754183, #783f85 2.2%, #82468d 2.2%, #8a4a98 3.4%, #9050a0 4.5%, #ac60bc 8%, #bf71ce 10.3%, #d791e8 13.7%, #e3a7f6 16%, #f6c1ff 19.5%, #f8d1ff, #fad4ff 24.1%, #f3c5fd 27.5%, #f2beff 28.7%, #eab4f9 29.8%, #e1a1ef 32.1%, #d797e5 33.3%, #cf89e0 34.4%, #bd71cd 36.7%, #b367c3 37.9%, #a65eb8 39%, #9c55aa 40.2%, #80438d 43.6%, #764085 44.8%, #6c3975 51.7%, #763d81 54%, #7b4286 55.1%, #834891 56.3%, #964fa6 58.6%, #a157b3 59.7%, #ad61bd 60.9%, #bd75cf 63.2%, #c980da 64.3%, #e4a4f2 67.8%, #f7ceff 73.5%, #f6cffd 77%, #e3a3f1 83.9%, #d997ea 85%, #d58ce6 86.2%, #ba6dcc 89.6%, #9550a2 94.2%, #7c458d 97.7%, #794485)
+}
+.theme14{
+  background-image: linear-gradient(#a62344, #cd3c6e 6.8%, #e35590 10.3%, #ef6ba5, #fa87b9 14.9%, #f894c1 16%, #fc9ec9 17.2%, #ffb8d9, #ffc8e4 21.8%, #ffcde5 22.9%, #fec9e4, #febbdd, #fea4ce 29.8%, #fb99c5 31%, #e75f96 35.6%, #c23360 41.3%, #b62f56 42.5%, #b02950 43.6%, #a92649 44.8%, #a42144 45.9%, #9f213e 47.1%, #9a1f3b 50.5%, #9e203d 51.7%, #a12342 52.8%, #a62145 54%, #ba305a 57.4%, #c43661 58.6%, #d6467d, #e25a91 63.2%, #f582b4 66.6%, #f891bf 67.8%, #ffa8d1 70.1%, #ffbedd 72.4%, #ffc6e0 73.5%, #ffcae5 75.8%, #ffc7e3 77%, #febadc 79.3%, #fc97c8 82.7%, #f98cbe 83.9%, #f26ea8 86.2%, #d8467c 90.8%, #c23360 94.2%, #b8315a 95.4%, #ae294f 97.7%, #a8284a 98.8%)
+}
+.theme15{
+  background-image: linear-gradient(#a55b27, #d67245 8%, #f28e6d 12.6%, #f6a287 14.9%, #fed5cc 21.8%, #ffd7ce, #fed1c5, #fdc1b0 28.7%, #fdb7a6 29.8%, #f6a48d 32.1%, #f09c7f 33.3%, #e88763 35.6%, #e17e58 36.7%, #bd6431 41.3%, #b7632e 42.5%, #9b5623 48.2%, #9a5522 50.5%, #9d5923 51.7%, #a05a25 52.8%, #ac5d2b 55.1%, #b16230 56.3%, #bb6432 57.4%, #c46939 58.6%, #ce6b42 59.7%, #e5825a 63.2%, #e98d65 64.3%, #f59e82 66.6%, #f7a993 67.8%, #fed2c8 73.5%, #fed5ca 74.7%, #fecfc4 78.1%, #fbad98 82.7%, #f8a78d 83.9%, #f49274 86.2%, #e37a53 89.6%, #ce6f40, #c26533 94.2%, #b9652e 95.4%, #ae5f2b 97.7%, #aa602a 98.8%)
+}
+.theme16{
+  background-image: linear-gradient(#846341, #99714e 3.4%, #a88054, #bb8d63, #cea276 10.3%, #deb189 12.6%, #f0cba8 16%, #ffe1cb 20.6%, #ffe8d1 24.1%, #fadbbe 28.7%, #c2966b 37.9%, #a27b55 41.3%, #9a724f 42.5%, #876340 44.8%, #846041 45.9%, #7b5d3e 47.1%, #77583d 49.4%, #75593b 50.5%, #7a5b40 51.7%, #7c5d40 52.8%, #866243 54%, #946c4a 56.3%, #9c754f 57.4%, #a87b55 58.6%, #d9ad82 64.3%, #dfb890 65.5%, #efc7a4 67.8%, #f8d6b9 70.1%, #ffe6d0 74.7%, #ffe6ce 77%, #fad9bd 80.4%, #f6d5b3 81.6%, #f6ceac 82.7%, #cd9c72 89.6%, #c09468 90.8%, #ad835a 93.1%, #a67953 94.2%, #997450 95.4%, #926f4a 96.5%, #8c6845 97.7%)
+}
+.theme17{
+  background-image: linear-gradient(#847243, #98814c 3.4%, #b9a561 8%, #d8bf7d 11.4%, #e7d294 13.7%, #fff3d2 21.8%, #fff4d3 24.1%, #fdefc4 27.5%, #fceabd 28.7%, #e7d197 33.3%, #b7a15f 39%, #99854d 42.5%, #806f3d 45.9%, #7b683e 47.1%, #74663a 50.5%, #7e6c3f 52.8%, #82713f 54%, #9e8850 57.4%, #d7c282 64.3%, #e1cb91 65.5%, #faecc0 71.2%, #fef1cd 73.5%, #fff5d0 74.7%, #f8e5b4 81.6%, #f5e3ac 82.7%, #f2dba6 83.9%, #ccb270 89.6%, #ac9759 93.1%, #a38d53 94.2%, #857344)
+}
+.theme18{
+  background-image: linear-gradient(#678443, #698743 2.2%, #708e49 2.2%, #93bb63 8%, #bfe694 13.7%, #d7f5b1 17.2%, #e6ffce 21.8%, #eafed0 22.9%, #eafed0 24.1%, #d2f0ab 31%, #c4e397 33.3%, #a3cb73 36.7%, #9ac26a 37.9%, #76974d 42.5%, #5b753d 48.2%, #5a743b, #5f7c3b 52.8%, #729049 56.3%, #789b4e 57.4%, #8cb05d 59.7%, #b1d882 64.3%, #dbf8b9 70.1%, #e6fcc5, #ebfed0 74.7%, #ebfed0 75.8%, #cdefa2 83.9%, #aad27a 88.5%, #98c068 90.8%, #8fb45d 91.9%, #87ac56 93.1%, #7ea154 94.2%, #76994c 95.4%, #688548 98.8%)
+}
+.theme19{
+  background-image: linear-gradient(#504e50, #3c3a3c 2.8%, #413f41 4.2%, #898789 11.2%, #d2d0d2 16.9%, #f7f5f7 21.1%, #fffdff 25.3%, #a5a3a5 33.8%, #7b797b 36.6%, #3a383a 43.6%, #353335 45%, #2d2b2d 54.9%, #312f31 60.5%, #4e4c4e 73.2%, #5c5a5c 77.4%, #676567 84.5%, #646264 85.9%, #565456 88.7%, #2c2a2c 94.3%, #0e0c0e);
+}
+.theme20{
+  background-image: linear-gradient(#3d3c3b, #3c3a3c 2.7%, #a09fad 2.7%, #9f9fb0 4%, #a1a5af 5.4%, #a4a8b4 6.7%, #a9aab5 8.1%, #b5b6c1 12.1%, #e0e0e5 24.3%, #e4e5e8 25.6%, #e8e9ec 27%, #f9f7fb 32.4%, #fffeff 39.1%, #fffeff 58.1%, #d0ced0 58.1%, #393739 60.8%, #a3a1a3 68.9%, #cdcbcd 75.6%, #f5f3f5 85.1%, #fffeff 91.8%, #c2bfc1 97.2%, #3f3c3e 97.2%, #3d3a3c);
+}
+.theme21{
+  background-image: linear-gradient(#c3c1c3, #e2e5e7 11.1%, #edf2f4 18%, #f1f8f9 20.8%, #f5fcfd 27.7%, #f0f7f8 31.9%, #d0d1d2 45.8%, #c5c6c7 51.3%, #c1bfc1 54.1%, #b2b0b4 61.1%, #a9aaad 63.8%, #9ea5a7 68%, #9ca1a4 70.8%, #99a0a2 72.2%, #91999d 76.3%, #83898e 81.9%, #7b8085, #75777d 87.5%, #72747a 88.8%, #707077 90.2%, #666469 97.2%, #3f3b40 97.2%, #3d3a3c);
+}
+.them22{
+  background-image: linear-gradient(#696b6f, #90969b 4.2%, #b7bdc2 7.1%, #d2d9db 12.8%, #f0f7f9 22.8%, #f5fcfd 28.5%, #ebf2f3 32.8%, #d5dadc 37.1%, #aeb1b1 42.8%, #98999c 47.1%, #7d7e7f 52.8%, #797779 54.2%, #646264 60%, #5a585a 64.2%, #58565a 67.1%, #555659 68.5%, #5a5b5e 70%, #6c7174 72.8%, #808588 75.7%, #888f91 77.1%, #939b9f 81.4%, #91979c 84.2%, #898f94 87.1%, #7b7d83 91.4%, #6b6d73 95.7%, #666469 98.5%);
+}
+.theme23{
+  background-image: linear-gradient(#504e50, #3c3f41, #444a4f 5.4%, #5f6467 9.5%, #76797b 12.3%, #979a9c 16.4%, #afb2b4 20.5%, #c2c3c6 24.6%, #dcdde0 31.5%, #eae8ea 36.9%, #edebed 39.7%, #e9e7e9 42.4%, #b0aeb0 49.3%, #656365 56.1%, #4d4c4b 61.6%, #4f4d52 68.4%, #535156 69.8%, #5a5a5f 72.6%, #63636a 76.7%, #606069 82.1%, #5a5c62 84.9%, #52545a 87.6%, #494e53 90.4%, #3c4144 95.8%, #3e4143, #3b3c3f 98.6%);
+}
+.theme24{
+  background-image: linear-gradient(#3e3b3d, #3c3a3c 2.7%, #413f41 2.7%, #898789 9.7%, #d2d0d2 15.2%, #f7f5f7 19.4%, #fcfafc 20.8%, #fffdff 23.6%, #f6f4f6 25%, #a19fa1 31.9%, #787678 34.7%, #474547 43%, #474547 44.4%, #5e5c5e 52.7%, #5e5c5e 55.5%, #494749 65.2%, #484648 69.4%, #646264 77.7%, #646264 83.3%, #565456 86.1%, #060406 97.2%, #060406 98.6%, #3e3b3d 98.6%);
+}
+.theme25{
+  background-image: linear-gradient(#060305, #3d3a3c 2.7%, #3e3b3d 4.1%, #f1eff1 18%, #f4f2f4 22.2%, #aeacae 26.3%, #5a585a 41.6%, #504e50 44.4%, #474547 50%, #494749 54.1%, #615f61 63.8%, #676567 70.8%, #5c5a5c 77.7%, #343234 90.2%, #131113 97.2%, #0c0a0c);
+}
+.theme26{
+  background-image: linear-gradient(#3b3c3f, #6e7479 2.7%, #7c8488 4.1%, #b2b8bd 8.3%, #dde4e6, #f4fbfc 27.7%, #f5fcfd 30.5%, #f1f8f9 31.9%, #e2eaec 34.7%, #a4acae 45.8%, #929a9c 51.3%, #929a9e 52.7%, #929a9e 55.5%, #92989d, #949b9d 58.3%, #9a9d9f 61.1%, #9fa2a4 63.8%, #a3a1a3 66.6%, #a3a1a3 69.4%, #999799 75%, #78767b 87.5%, #6c6971 93%, #6b696b, #676470 95.8%, #66636d 98.6%, #3d3c3b 98.6%);
+}
+.theme27{
+  background-image: linear-gradient(#686a6e, #8e9499 4.2%, #b2b8bd 7%, #dde4e6 16.9%, #f6fdfe 28.1%, #f5fcfd 29.5%, #ccd3d5 36.6%, #b4bcbe 40.8%, #949ca0 47.8%, #858c8e 50.7%, #7e8386, #787d82, #73757b 54.9%, #6d6f75, #696970 57.7%, #636068 60.5%, #5f5c64 66.1%, #565456 81.6%, #353335 91.5%, #2b292d 94.3%, #252325 97.1%, #252325 98.5%, #3c3a3c 98.5%);
+}
+.theme28{
+  background-image: linear-gradient(#a5abb0, #bbc2c4 2.8%, #d8dfe1 11.2%, #edf4f6 19.7%, #f1f8fa, #f4f9fb 25.3%, #f5fcfd, #f5fcfd 28.1%, #e9f0f2 32.3%, #dee6e8 32.3%, #b9c0c2 38%, #9ea4a9 42.2%, #8a9192 46.4%, #72797b 52.1%, #474c4e 60.5%, #3f4244, #3f4244 63.3%, #1b1e1e 63.3%, #434646, #505355 66.1%, #6e7577 70.4%, #81888a 73.2%, #929a9c 77.4%, #939b9d 80.2%, #949a9f 81.6%, #8f959a 84.5%, #818389 88.7%, #73757b 91.5%, #6d6d76, #696970 94.3%, #666469, #666469 97.1%, #3f3b40 97.1%, #3d3a3c 98.5%);
+}
+.theme29{
+  background-image: linear-gradient(#3e3b3d 2.7%, #423f41 2.7%, #9b999b 9.4%, #c4c2c4 17.5%, #dddbdd 24.3%, #e5e3e5 28.3%, #e3e1e3 31%, #8f8d8f 41.8%, #747274 45.9%, #201e20 55.4%, #100e10 58.1%, #211f21 64.8%, #575557 75.6%, #838183 87.8%, #8d8e8d 94.5%, #8e8d8c 95.9%, #8e8d8c 97.2%, #3f3c3e 97.2%, #3d3a3c);
+}
+.theme30{
+  background-image: linear-gradient(#3d3b3d, #f8b669 2.8%, #f6b467, #f5b064 5.6%, #f0ae61 7%, #e8a75a 9.8%, #e5a356 11.2%, #dc9b4e 14%, #b7782a 25.3%, #a76b1c 30.9%, #a06415 33.8%, #9c6212 35.2%, #92570a 43.6%, #8f5709 45%, #8f5709 47.8%, #975e15 52.1%, #996218, #9e671d 54.9%, #a8702a 57.7%, #ae7630, #b37d36, #b9833e 61.9%, #c68f4e 64.7%, #d9a263 67.6%, #e1a96d, #e6b176 70.4%, #f5bf87 74.6%, #f5bf88, #edb780 80.2%, #d9a36c 84.5%, #c18951, #a97137 92.9%, #a2682f 94.3%, #9b6128, #955c20, #90571b 98.5%);
+}
+.theme31{
+  background-image: linear-gradient(#8b540a, #91590b 4.2%, #945a0a 5.7%, #965c0c 7.1%, #995d0d 8.5%, #9b600d 10%, #9f610d 11.4%, #a76810 15.7%, #ab6b12 17.1%, #af6c12 18.5%, #b36f15 20%, #b87116 21.4%, #ba7416 22.8%, #be7618 24.2%, #c17a19 25.7%, #cc811b 28.5%, #d78920 31.4%, #e08f22 34.2%, #e69324 35.7%, #ee9a27 38.5%, #f39c29 40%, #f79f2a 41.4%, #fca529 44.2%, #fdb826 50%, #feb627 52.8%, #fdb42a 55.7%, #fcaf28, #fea92b 58.5%, #fea92b 60%, #f29e2b 60%, #a5712f, #6f5335 62.8%, #735836 68.5%, #775936 70%, #7a5d37 71.4%, #876539 75.7%, #8a6839, #8f6c39 78.5%, #a77d3a 84.2%, #b6843c 87.1%, #bb8b3c 88.5%, #c38f3d 90%, #ce983c 92.8%, #d49c3e 94.2%, #db9f3e 95.7%, #e1a53e);
+}
+.theme32{
+  background-image: linear-gradient(#8b5408, #90580a 2.8%, #9f610f 7.1%, #a2650e 8.5%, #b37114 12.8%, #b87515 14.2%, #c57c1a 17.1%, #ca821b 18.5%, #dc8d1f 21.4%, #faa329 28.5%, #fca52b 30%, #fda42b, #fca52b, #fba32c 34.2%, #f8a22a 35.7%, #f59f29 37.1%, #e69529 41.4%, #d48726 45.7%, #c87e22 48.5%, #b16c1f 54.2%, #a6651c 57.1%, #9b5d19 65.7%, #a3641a 71.4%, #a6651c, #a9691b 74.2%, #ad6b1d 75.7%, #b06e1e, #b5711d 78.5%, #ba751f 80%, #bf781f 82.8%, #e19225 82.8%, #c07922 84.2%, #b9741e 85.7%, #b2711e, #ad6b1d 88.5%, #a4641d 91.4%, #9e611a 92.8%, #9a5c1a 94.2%, #96591a 95.7%, #925818 97.1%, #8f5417);
+}
+.theme33{
+  background-image: linear-gradient(#8d560a, #935d0e 2.8%, #966210 4.3%, #a26e19 8.6%, #a4741b 10.1%, #a9791e 11.5%, #ad7f21 13%, #b78a26 15.9%, #ba9029 17.3%, #bf952e 18.8%, #c59c31 20.2%, #c59c31 21.7%, #d5b03d 21.7%, #f4d653 24.6%, #fddf5a 28.9%, #fcd95a 31.8%, #fdd35a 33.3%, #fdce5b 34.7%, #fcc95b 36.2%, #fbc35b 37.6%, #ecb15a 43.4%, #e1a555 47.8%, #d69e50 50.7%, #d1994d 52.1%, #cb944a 53.6%, #c18b42 56.5%, #bb8840 57.9%, #b5833f 59.4%, #ad7a38, #a27432 65.2%, #996a2b 69.5%, #976829 71%, #996223, #985e1e 76.8%, #985b1b 78.2%, #975c13 82.6%, #985b13 84%, #985b11 85.5%, #995d10 86.9%, #9f6111 88.4%, #a46511 89.8%, #be7619 94.2%, #c87f1d 95.6%, #c87f1d 97.1%, #d58920 97.1%, #e19225 98.5%);
+}
+.theme34{
+  background-image: linear-gradient(#955b0b 2.8%, #af6f14 11.4%, #bd7718 14.2%, #d1871f 18.5%, #fca52b 31.4%, #cb7f22 52.8%, #be7720 55.7%, #ba721f 57.1%, #a7661d 61.4%, #a4621c, #9d6019 64.2%, #925818 67.1%, #8a5518 68.5%, #855116 70%, #6e4713 78.5%, #714914 82.8%, #7f4d15 90%, #804e16, #854f18 92.8%, #8c5317 98.5%, #3d3b3d 98.5%);
+}
+.theme35{
+  background-image: linear-gradient(#432c07, #b68c17 24.2%, #c89f1a, #d4a81c 30%, #e7b821 30%, #f3c425 31.4%, #f8c628 34.2%, #d5a623 44.2%, #b5841e 51.4%, #ae7f20 52.8%, #9c6c1b 57.1%, #794d15 67.1%, #51320c 82.8%, #462d08 90%, #452b09 91.4%, #3f2a06 95.7%, #3e2807 98.5%, #3e3b3d 98.5%);
+}
+.theme36{
+  background-image: linear-gradient(#3f1e02, #603e07, #805d0a 14.2%, #e5ba2e 32.8%, #d8af28 40%, #d3a927 41.4%, #be971f 47.1%, #b58d1b 50%, #9f7814 57.1%, #714e0b 75.7%, #6c4c0c 77.1%, #5e3e07 82.8%, #583a07 84.2%, #4f3108 88.5%, #412304 95.7%, #3d2103 98.5%, #3e3c3e 98.5%);
+}
+.theme37{
+  background-image: linear-gradient(#3d3b3d, #604126 2.8%, #996626 15.7%, #b6822d 21.4%, #fad657 30%, #fedc5a 32.8%, #c49031 42.8%, #634226 68.5%, #5e3e26 71.4%, #523924, #493221 80%, #231f17 95.7%, #231d18, #1e1c16 98.5%);
+}
+.theme38{
+  background-image: linear-gradient(#bb7703, #bf7c0a 4.2%, #c58616 10%, #c68a19 11.4%, #d09629 17.1%, #e0b047 27.1%, #e4b34d 28.5%, #edc35e 35.7%, #efc462 37.1%, #f5d06f 45.7%, #f7cf6f, #f5d06e 48.5%, #f4cf6e 52.8%, #eec562 61.4%, #e8be59 65.7%, #daa63d 75.7%, #d6a337 77.1%, #cd9628 82.8%, #c88b1d 87.1%, #c38714 90%, #bb7904);
+}
+.theme39{
+  background-image: linear-gradient(#dfbc35 4.2%, #dcb835 7.1%, #dab836 8.5%, #d4b135 12.8%, #b49639 32.8%, #a3863c 48.5%, #8e743b 71.4%, #89713c 74.2%, #856c3b 81.4%, #846d3b 84.2%, #846b39 87.1%, #836c37 94.2%, #846b39 95.7%, #836c37);
+}
+.theme40{
+  background-image: linear-gradient(#6f5533 2.8%, #725934 2.8%, #7c6334 7.1%, #856a34 10%, #a28b3f 18.5%, #af984b 22.8%, #b6a157 22.8%, #e5d7a2 31.4%, #eddeb0 34.2%, #e6d7a5 40%, #b09b51 57.1%, #987834 82.8%, #9a7734 84.2%, #966f33 95.7%, #957033 97.1%, #956e34);
+}
+.theme41{
+  background-image: linear-gradient(#6f5334, #735834 3.5%, #866738 10.7%, #91713a 14.2%, #9d793c, #a98540 21.4%, #b18942 23.2%, #c69d46 28.5%, #ddae4b 32.1%, #f6c450 37.5%, #ffcb52 42.8%, #fdc952 48.2%, #fac952 50%, #dbae4c 66%, #d0a649 69.6%, #c29845 75%, #93733b);
+}
+.theme42{
+  background-image: linear-gradient(#6d5121, #8a7140 11.2%, #f6e9b8 42.2%, #faefbe 46.4%, #fdefc1, #fbf0c1 49.2%, #e7daa9 61.9%, #9d8858 81.6%, #9a8253 83%, #7c6332 91.5%, #765a2a 94.3%, #705424 98.5%, #3d3b3d 98.5%);
+}
+.theme43{
+  background-image: linear-gradient(#3d3b3d, #523f27 2.7%, #5f4c32 9.7%, #69573a 13.8%, #735e40 16.6%, #b19f70 34.7%, #f2e1a4 45.8%, #f7e6a7 52.7%, #eedda1 55.5%, #bda97b 63.8%, #9c8960 69.4%, #836f4d 77.7%, #7d6c49 79.1%, #534028 98.6%, #3d3b3d 98.6%);
+}
+.theme44{
+  background-image: linear-gradient(#3d3b3d, #523f27 2.7%, #7e6d4a 18%, #85714d 19.4%, #d0bf8a 36.1%, #d8c591 37.5%, #f7e6a9 45.8%, #ebda9e 58.3%, #d2bf8b 63.8%, #b9a778 68%, #b39f73, #ac9a6d 70.8%, #806c4a 81.9%, #746243, #6d583a 87.5%, #675538 88.8%, #523f27 98.6%, #3d3b3d 98.6%);
+}
+.theme45{
+  background-image: linear-gradient(#3d3b3d, #544129 2.7%, #685337 6.9%, #756342 9.7%, #b9a778 19.4%, #f2e1a4 26.3%, #f4e3a6 38.8%, #867250 75%, #806f4c 76.3%, #776342 80.5%, #675538 86.1%, #523f27 98.6%, #3d3b3d 98.6%);
+}
+.theme46{
+  background-image: linear-gradient(#9ea6c6, #a1a8cb 2.3%, #707490 6.9%, #676c85 8.1%, #595d71 15.1%, #606478 22%, #63657a 23.2%, #757a8f 36%, #8a8eaa 39.5%, #9198b4 40.6%, #9198b4 41.8%, #a1a8c4 41.8%, #adb7d9 43%, #bec5ea 44.1%, #c4cef0 45.3%, #c3cdf1 47.6%, #b0b7da 52.3%, #787d96 60.4%, #595d71 88.3%, #6c7285 94.1%, #757a91 94.1%, #9299b5 98.8%);
+}

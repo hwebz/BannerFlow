@@ -1,0 +1,123 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+:focus {
+  outline: 0;
+}
+.container{
+  padding: 10px 15px;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+[for~='number-slider'] {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.number-slider {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #bbb;
+  width: 100px;
+  font-size: 14px;
+}
+
+.surfix {
+  padding: 0 15px 0 5px;
+}
+
+.slider {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 5px;
+  width: 400px;
+  background: linear-gradient(to right, #4eb7da 50%, #f1f1f1 50%);
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: inset 1px 1px 2px 0px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: inline-block;
+}
+
+.thumb {
+  height: 20px;
+  width: 20px;
+  background-color: #4eb7da;
+  border-color: #4eb7da;
+  border-radius: 50%;
+  left: 190px;
+  top: -7.5px;
+  background-clip: content-box;
+  border: 0px solid rgba(64, 81, 181, 0.3);
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+}
+
+.thumb:before, .thumb:after {
+  content: '';
+  display: block;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+}
+
+.thumb:before {
+  content: attr(value);
+  background-color: inherit;
+  top: -32px;
+  left: 10px;
+  padding: 3px 10px;
+  border-radius: 5px 5px 5px 0;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.thumb:after {
+  border-style: solid;
+  border-width: 6px 3px;
+  border-color : inherit;
+  border-right-color: transparent ! important ;
+  border-bottom-color: transparent ! important ;
+  position: absolute;
+  top: -10px;
+  left: 10px;
+}
+
+.thumb:hover:before, .thumb:hover:after,
+.thumb.active:before, .thumb.active:after,
+.slider:hover .thumb:before,.slider:hover .thumb:after
+{
+  opacity: 1;
+}
+
+.thumb.right:before{
+  right: 10px;
+  left: auto;
+  border-radius: 5px 5px 0 5px;
+}
+
+.thumb.right:after {
+  border-right-color: inherit ! important ;
+  border-bottom-color: transparent ! important ;
+  border-left-color: transparent ! important ;
+  left : auto;
+  right : 10px;
+}

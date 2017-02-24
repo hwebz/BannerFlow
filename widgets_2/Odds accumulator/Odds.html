@@ -1,0 +1,114 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+    
+        @font-face {
+    font-family: superstar;
+    src: url('https://bannerflow.blob.core.windows.net/resources/superstarunibetprossolidm-webfont-d2cd1ac6-1fb5-4de2-8a65-c850d6f975c5.ttf');
+            font-weight:lighter;
+}
+
+    body, html {
+        background-color:transparent;
+        font-family: 'superstar';
+        font-weight:lighter;
+    }
+	.btn {
+        background-color:transparent;
+        width: 100%;
+        border:none;
+        font-family:'superstar';
+        font-weight:lighter;
+        font-size:13px;
+    }
+    
+    .btn-holder {
+        background-color:transparent;
+        display:block;
+        padding: 2px;
+        float: left;
+        width: 33%;
+        height: 100%;
+    }
+    .container.two .btn-holder {
+        width: 50%;
+    }
+    .container.two .oddsX {
+        display:none;
+    }
+</style>
+
+<!-- Single button -->
+<div class="container">
+    <div class="btn-holder odds1">
+        <a id="odds1" class="btn btn-success btn-xs" onclick="javascript:void(0);">
+            1
+        </a>
+    </div>
+    <div class="btn-holder oddsX">
+        <a id="oddsX" class="btn btn-success btn-xs" onclick="javascript:void(0);">
+            X
+        </a>
+    </div>
+    <div class="btn-holder odds2">
+        <a id="odds2" class="btn btn-success btn-xs" onclick="javascript:void(0);">
+            2
+        </a>
+    </div>
+</div>
+<script>
+    
+    window.onload = function () {
+        BannerFlow.addEventListener(BannerFlow.LOOP, function (e) {
+            $(".btn").removeClass("active");
+        })
+        BannerFlow.addEventListener(BannerFlow.TEXT_UPDATED, function (e) {
+            var odds = BannerFlow.getText().replace(/\s/, "").split(";");
+            
+            console.log("odd1", odds)
+            
+            if(odds.length >= 6) {
+                odds = [odds[1],odds[3],odds[5]];
+            }
+            else if(odds.length >= 4) {
+                odds = [odds[1],odds[3]];
+            }
+            else if(odds.length < 2) {
+                return false;
+            }
+            console.log("odd2", odds)
+            
+            
+            $("#odds1").text(odds[0]);
+            if(odds.length == 3) {
+                $(".container").removeClass("two");
+                $("#oddsX").text(odds[1]);
+                $("#odds2").text(odds[2]);
+            }
+            else {
+                $(".container").addClass("two");
+                $("#odds2").text(odds[1]);
+            }
+        });
+        $(".btn").click(function (e) {
+            console.log("click",e, this, BannerFlow.key);
+            var odds = $(this).text();
+            //Toggle
+            if($(this).hasClass("active")) {
+                odds = 1;
+                $(".btn").removeClass("active");
+            }
+            else {
+                $(".btn").removeClass("active");
+                $(this).addClass("active");
+            }
+            BannerFlow.raiseEvent("odds_changed", {odds: odds, key: BannerFlow.key + "_" + BannerFlow.feedIndex });
+        });
+    }
+</script>

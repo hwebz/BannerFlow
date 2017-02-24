@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>City Weather</title>
+
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+	<!-- The HTML added here will be rendered within a body tag -->
+	<link href='https://fonts.googleapis.com/css?family=Roboto:900,400' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Dosis:400,800' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Passion+One:400,900' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<!-- The HTML added here will be rendered within a body tag -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.min.js"></script>
+</head>
+<body>
+
+	<div id="weather-widget">
+	    <div id="city-weather" class="city-weather">
+	        <div class="icon-part">
+	            <div id="sun-shower" class="icon sun-shower">
+	              <div class="cloud"></div>
+	              <div class="sun">
+	                <div class="rays"></div>
+	              </div>
+	              <div class="rain"></div>
+	            </div>
+
+	            <div id="thunder-storm" class="icon thunder-storm">
+	              <div class="cloud"></div>
+	              <div class="lightning">
+	                <div class="bolt"></div>
+	                <div class="bolt"></div>
+	              </div>
+	            </div>
+
+	            <div id="cloudy" class="icon cloudy">
+	              <div class="cloud"></div>
+	              <div class="cloud"></div>
+	            </div>
+
+	            <div id="flurries" class="icon flurries">
+	              <div class="cloud"></div>
+	              <div class="snow">
+	                <div class="flake"></div>
+	                <div class="flake"></div>
+	              </div>
+	            </div>
+
+	            <div id="sunny" class="icon sunny">
+	              <div class="sun">
+	                <div class="rays"></div>
+	              </div>
+	            </div>
+
+	            <div id="rainy" class="icon rainy">
+	              <div class="cloud"></div>
+	              <div class="rain"></div>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="text-part style1">
+	        <span class="location"></span>
+	        <div class="degree-wrap">
+	            <span class="degree"></span><span class="unit"></span>
+	        </div>
+	    </div>
+	    <div class="text-part style2">
+	        <div class="degree-wrap">
+	            <span class="degree"></span><span class="unit"></span>
+	        </div>
+	        <span class="location"></span>
+	    </div>
+	</div>
+
+	<script type="text/javascript" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<style>
+    body{overflow: hidden; display: table;}
+    #player-wrapper{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+    #player{
+        width: 100%;
+        height: 100%;
+    }
+    #click{
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        z-index: 99;
+        left: 0;
+    }
+    #msg{
+        display: none;
+        text-align: center;
+        vertical-align: middle;
+        background: #eee;
+        height: 100%;
+        font-size: 11px;
+        color: #888;
+        font-family: sans-serif;
+    }
+    #msg strong{
+        font-size: 13px;
+        font-weight: bold;
+    }
+</style>
+<div id="click"></div>
+<div id="player-wrapper"></div>
+<div id="msg" class="status"><strong>Youtube player</strong><br>Double-click and enter a Youtube URL.</div>
+<script>
+
+    var v_id, v_url;
+
+    //Sets the volume of the video
+    var volume = 0;
+    //0 = off, 1 = on
+    var controls = 0; 
+    var loop = 1;
+    var autoPlay = 1;
+    var title,badge,portrait,byline;
+    var startTime = 0; //In seconds; e.g 74
+    var endTime = null; //Null = to the end
+    //var cfs = false;
+
+    window.onload = function () {
+        BannerFlow.addEventListener(BannerFlow.INIT, function () {
+            if(BannerFlow.imageGeneratorMode)document.getElementById("player-wrapper").style.display = "none";
+        })
+        BannerFlow.addEventListener(BannerFlow.TEXTS_RECEIVED, function(){
+            if(BannerFlow.editorMode)document.getElementById("msg").style.display = "table-cell";
+            //if(cfs == false)document.getElementById("click").style.display = "none";
+        })
+        BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+            if(BannerFlow.editorMode)document.getElementById("msg").style.display = "table-cell";
+            if(BannerFlow.getText().indexOf("//") != -1 || BannerFlow.getText().indexOf("www") != -1) {
+                document.getElementById("player-wrapper").style.opacity = 1;
+                document.getElementById("msg").style.display = "none";
+                v_url = BannerFlow.getText();
+
+                if(v_url.indexOf("vimeo.com") != -1){
+                    v_url = v_url.split(/[\&?\s]/)[0];
+                    v_id = v_url.split("/")[3]
+                }
+                startTime = (getParameterByName('start') !== null|undefined) ? parseInt(getParameterByName('start')) : 0;
+                volume = (getParameterByName('volume') !== null|undefined|NaN) ? parseInt(getParameterByName('volume')) : 0;
+                endTime = (getParameterByName('end') !== null|undefined) ? parseInt(getParameterByName('end')) : 0;
+                loop = (getParameterByName('loop') == "true") ? (loop = 1) : 0;
+                autoplay = (getParameterByName('autoplay') == "true") ? (autoplay = 1) : 0;
+                controls = (getParameterByName('controls') == "true") ? (controls = 1) : 0;
+                title = (getParameterByName('title') == "false") ? (title = 0) : 1;
+                byline = (getParameterByName('byline') == "false") ? (byline = 0) : 1;
+                portrait = (getParameterByName('portrait') == "false") ? (portrait = 0) : 1;
+                badge = (getParameterByName('badge') == "false") ? (badge = 0) : 1;
+                //cfs = (getParameterByName('cfs') == "true") ? (cfs = true) : false;
+                //autoplay=1&loop=1&title=0&byline=0&portrait=0&badge=0"
+                render(v_id);
+            }
+            else {
+                document.getElementById("player-wrapper").style.opacity = 0;
+                document.getElementById("msg").innerHTML = "<strong>Vimeo player</strong><br>Double-click and enter a Vimeo URL.";
+                if(BannerFlow.getText() >= 1)
+                    onError();
+            }
+        });
+        function render(id){
+            while(document.getElementsByTagName("iframe").length > 0) {
+                var element = document.getElementsByTagName("iframe")[0];
+                element.parentNode.removeChild(element);
+            }
+            var player = document.createElement("iframe");
+            player.setAttribute('id','player')
+            player.setAttribute('src','https://player.vimeo.com/video/'+id+'?api=1&player_id=player&loop='+ loop +'&autoplay='+ autoplay +'&title='+ title +'&byline='+ byline +'&portrait='+ portrait +'&badge='+ badge)
+            document.getElementById("player-wrapper").appendChild(player);
+        }
+        function getParameterByName(name) {
+            var match = RegExp('[?&]' + name + '=([^&]*)').exec(BannerFlow.getText().replace(/&amp;/g, '&'));
+            return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+        }
+    };
+</script>

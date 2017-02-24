@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>
+			Banner Animation
+		</title>
+
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			.wrapper{
+				margin: 0 auto;
+				padding: 20px 0;
+				width: 1200px;
+			}
+			.result-container{
+				margin: 0 0 20px;
+			}
+			h1{
+				text-align: center;
+			}
+			iframe{
+				margin: 0 auto;
+				display: block;
+				border: 0;
+			}
+			.controller-panel {
+				border: 1px solid #acacac;
+				padding: 30px;
+			}
+			input[type=text]{
+				width: 200px;
+				height: 20px;
+				padding: 3px;
+				margin: 0 15px 0 0;
+			}
+			select {
+				width: 300px;
+				margin: 0 15px 0 0;
+				height: 30px;
+			}
+			input[type=checkbox]{
+				width: 15px;
+				height: 15px;
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.checkbox-container {
+				vertical-align: middle;
+				font-size: 0;
+				padding: 10px 0;
+			}
+			.checkbox-container:before{
+				content: '';
+				display: inline-block;
+				height: 100%;
+				vertical-align: middle;
+			}
+			.label-checkbox{
+				display: inline-block;
+				vertical-align: middle;
+				font-size: 16px;
+			}
+			.button-container{
+				padding: 20px 0;
+			}
+			.iframe-link{
+				width: 100%;
+				height: 40px;
+				margin: 20px 0 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="result-container">
+				<h1>Animation example by CSS3</h1>
+				<iframe id="iframe" src="./animation.html" width="400" height="300"></iframe>
+				<textarea id="iframeLink" class="iframe-link"></textarea>
+			</div>
+			<div class="controller-panel">
+				<h2>Animation Parameters</h2>
+				<div>
+					<input id="text" name="text" type="text" placeholder="text for animation" value="Behind your development project"/>
+					<select id="animationDuration">
+						<option value="">Select a duration for the animation</option>
+						<option value="500">0.5s</option>
+						<option value="1000">1s</option>
+						<option value="1500">1.5s</option>
+						<option value="2000" selected="">2s</option>
+						<option value="2500">2.5s</option>
+						<option value="3000">3s</option>
+						<option value="3500">3.5s</option>
+						<option value="4000">4s</option>
+						<option value="4500">4.5s</option>
+						<option value="5000">5s</option>
+					</select>
+					<select id="animationType">
+						<option value="">Select an animation style</option>
+						<option value="bounce">bounce</option>
+						<option value="flash">flash</option>
+						<option value="pulse">pulse</option>
+						<option value="shake">shake</option>
+						<option value="swing">swing</option>
+						<option value="tada">tada</option>
+						<option value="wobble">wobble</option>
+						<option value="bounceIn">bounceIn</option>
+						<option value="bounceInDown">bounceInDown</option>
+						<option value="bounceInLeft">bounceInLeft</option>
+						<option value="bounceInRight">bounceInRight</option>
+						<option value="bounceInUp">bounceInUp</option>
+						<option value="fadeIn">fadeIn</option>
+						<option value="fadeInDown">fadeInDown</option>
+						<option value="fadeInDownBig">fadeInDownBig</option>
+						<option value="fadeInLeft">fadeInLeft</option>
+						<option value="fadeInLeftBig" selected>fadeInLeftBig</option>
+						<option value="fadeInRight">fadeInRight</option>
+						<option value="fadeInRightBig">fadeInRightBig</option>
+						<option value="fadeInUp">fadeInUp</option>
+						<option value="fadeInUpBig">fadeInUpBig</option>
+						<option value="flipInX">flipInX</option>
+						<option value="flipInY">flipInY</option>
+						<option value="lightSpeedIn">lightSpeedIn</option>
+						<option value="rotateIn">rotateIn</option>
+						<option value="rotateInDownLeft">rotateInDownLeft</option>
+						<option value="rotateInDownRight">rotateInDownRight</option>
+						<option value="rotateInUpLeft">rotateInUpLeft</option>
+						<option value="rotateInUpRight">rotateInUpRight</option>
+						<option value="hinge">hinge</option>
+						<option value="rollIn">rollIn</option>
+					</select>
+					<div class="checkbox-container">
+						<input type="checkbox" id="isLoop" /> 
+						<label class="label-checkbox" for="isLoop">Is Loop</label>
+					</div>
+				</div>
+				<h2>iframe Parameters</h2>
+				<div>
+					<input id="iframe_width" name="text" placeholder="width of iframe" value="400" />
+					<input id="iframe_height" name="text" placeholder="height of iframe" value="300" />
+				</div>
+				<div class="button-container">
+					<button id="reloadBtn">Reload</button>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var iframe = $('#iframe');
+				var iframeLink= $('#iframeLink');
+				var src = "animation.html";
+
+				var href = window.location.href;
+				if(href.indexOf(".html") > 0){
+					var indexOfLastForwordSlash = href.lastIndexOf("/");
+					src = href.substring(0,indexOfLastForwordSlash+1) + src;
+				}
+				else{
+					src = href + src;
+				}
+
+				iframe.attr('src', src);
+
+				iframeLink.val(iframe.clone().wrap('<p>').parent().html());
+
+				$('#reloadBtn').on('click', function() {
+					var text = $('#text').val();
+					var duration = $('#animationDuration').val();
+					var animation = $('#animationType').val();
+					var loop = $('#isLoop').is(':checked');
+
+					var width = $('#iframe_width').val();
+					var height = $('#iframe_height').val();
+
+					if(width && !isNaN(width) && height && !isNaN(height)){
+						width = parseInt(width);
+						height = parseInt(height);
+
+						if(width > 0 && height > 0){
+							iframe.attr('width', width);
+							iframe.attr('height', height);
+						}
+						else {
+							width = iframe.attr('width');
+							height = iframe.attr('height');
+						}
+					}
+
+					if(text && text.trim().length > 0){
+						text = text.trim();
+						var url = src+"?text="+text;
+
+						if(duration){
+							url +="&duration="+duration;
+						}
+						if(animation){
+							url +="&animation="+animation;
+						}
+						if(loop){
+							url +="&loop=1";
+						}
+						else{
+							url +="&loop=0";	
+						}
+
+						iframe.attr('src',url);
+						iframeLink.val("<iframe src='"+url+"' width='"+width+"' height='"+height+"'></iframe");
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
+

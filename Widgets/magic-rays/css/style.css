@@ -1,0 +1,106 @@
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+
+HTML, BODY {
+  height: 100%;
+  }
+
+HTML, BODY {
+  height: 100%;
+}
+BODY {
+  
+  }
+
+.wrapper {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: radial-gradient(white 10px, hsl(200, 100%, 70%) 40em);
+  background-size: cover;
+  font-size: 10px;
+  }
+
+UL {
+  position: absolute;
+  left: -1em;
+  right: -1em;
+  top: -1em;
+  bottom: -1em;
+  margin: auto;
+  padding: 0;
+  width: 0;
+  height: 0;
+  list-style: none;
+  animation: 5s rotate infinite linear;    
+  transform-origin: center center;
+}
+LI,
+LI:before {
+  position: absolute;
+  border: 0 solid transparent;
+  border-width: 2em 200em;
+  width: 1px;
+  height: 1px;
+  font-size: 10px;
+  box-shadow: 0 0 2em .5em white;
+}
+LI {
+  left: -200em;
+  top: 50%;
+  margin-top: -2em;
+  transform: rotate(.1deg);
+  }
+LI:before {
+  left: -200em;
+  top: -2em;
+  display: block;
+  content: "";
+}
+
+LI:before {
+  transform: rotate(90deg);
+  }
+
+LI:nth-child(2){
+  transform: rotate(11.25deg);
+}
+LI:nth-child(3){
+  transform: rotate(22.5deg);
+}
+LI:nth-child(4){
+  transform: rotate(33.75deg);
+}
+LI:nth-child(5){
+  transform: rotate(45deg);
+}
+LI:nth-child(6){
+  transform: rotate(56.25deg);
+}
+LI:nth-child(7){
+  transform: rotate(67.5deg);
+}
+LI:nth-child(8){
+  transform: rotate(78.75deg);
+}
+LI:nth-child(9){
+  transform: rotate(90deg);
+}
+
+
+@keyframes rotate {
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes rotate-inverse {
+  100% {
+    transform: rotate(-90deg);
+  }
+}
+
+.control {
+  position: absolute;
+  top: 0;
+}

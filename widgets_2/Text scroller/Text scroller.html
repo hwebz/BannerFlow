@@ -1,0 +1,56 @@
+<span id='text'></span>
+
+<marquee id='textScroller' behavior="scroll" direction="left">
+
+</marquee>
+
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Roboto);
+    #text{font-family: 'Roboto', sans-serif; white-space: nowrap;}     
+
+</style>
+
+<script>
+    window.onload = function () {
+        var txt = document.getElementById("text");
+        var textScroller = document.getElementById("textScroller");
+        var bannerText;
+        var width;
+        var textOffset;
+
+        BannerFlow.addEventListener(BannerFlow.INIT, function(){
+            width = BannerFlow.getWidth();
+            console.log("init", width);
+            textOffset = txt.offsetWidth;
+            animate();
+        });
+        BannerFlow.addEventListener(BannerFlow.TEXT_CHANGED, function () {
+            bannerText = BannerFlow.getText();
+            width = BannerFlow.getWidth();
+            textOffset = txt.offsetWidth;
+            bannerText = bannerText.replace(/(<|&lt;)br\s*\/*(>|&gt;)/g," ");
+            bannerText = bannerText.replace(/(\r\n|\n|\r)/gm," ");
+            if(bannerText.length > 0) {
+                document.getElementById("text").innerHTML = bannerText;
+                animate();
+            }
+            else{
+                document.getElementById("text").innerHTML = "Connect me to a text.";
+            }
+        });
+        BannerFlow.addEventListener(BannerFlow.STYLE_CHANGED, function () {
+            txt.style.fontSize = BannerFlow.getStyle("font-size");
+            txt.style.transform = BannerFlow.getStyle("transform");
+            txt.style.color = BannerFlow.getStyle("color");
+            //console.log(BannerFlow.getStyle("font-size"), BannerFlow.getStyle("color"))
+        });
+        function animate(){
+            console.log("render", width, textOffset, bannerText);
+            if(textOffset >= width){
+                textScroller.appendChild(txt);
+            }else{
+                document.getElementsByTagName("BODY")[0].insertBefore(txt, textScroller);
+            }
+        }
+    }
+</script>
